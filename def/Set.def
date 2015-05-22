@@ -1,0 +1,86 @@
+DEFINITION MODULE Set;
+(*******************************************************************************
+Modulo de definicion de Set.
+
+Conjunto de strings.
+
+Laboratorio de Programacion 2.
+InCo-FIng-UDELAR
+*******************************************************************************)
+
+
+FROM Utils IMPORT TString;
+FROM ListaString IMPORT ListaString;
+
+TYPE
+   Set; 
+
+(*********************)
+(*** CONSTRUCTORES ***)
+(*********************)
+
+PROCEDURE CrearSet (): Set;
+(* Devuelve un conjunto vacio. *)
+
+PROCEDURE ConstruirSet (l: ListaString): Set;
+(* Devuelve un conjunto con los mismos elementos que estan en 'l'. *)
+
+PROCEDURE CopiaSet (S: Set): Set;
+(* Devuelve un conjunto con loe mismos elementos que 'S. 
+   El conjunto resultado no comparte memoria con 'S'. *)
+
+PROCEDURE InsertarEnSet (str: TString; VAR set: Set);
+(* Inserta 'str' en 'set'. Si ya estaba, no hace nada. *)
+
+PROCEDURE Union (A, B: Set): Set;
+(* Devuelve un conjunto con los elementos que estan en 'A' o en 'B'. 
+   El conjunto devuelto no comparte memoria ni con A ni con B.
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
+   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   resultado.
+   En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
+   en peor caso. *)
+
+PROCEDURE Interseccion (A, B: Set): Set;
+(* Devuelve un conjunto con los elementos que estan en 'A' y en 'B'.
+   El conjunto devuelto no comparte memoria ni con A ni con B.
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
+   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   resultado.
+   En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
+   en peor caso. *)
+
+PROCEDURE Diferencia (A, B: Set): Set;
+(* Devuelve un conjunto con los elementos que estan en 'A' y no en 'B'.
+   El conjunto devuelto no comparte memoria ni con A ni con B.
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
+   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   resultado.
+   En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
+   en peor caso. *)
+
+(********************)
+(*** DESTRUCTORES ***)
+(********************)
+
+PROCEDURE RemoverDeSet (str: TString; VAR set: Set);
+(* Remueve 'str' de 'set'. Si no estaba, no hace nada. *)
+
+PROCEDURE DestruirSet (VAR set: Set);
+(* Libera la memoria reservada por 'set'. *)
+
+   
+(******************)
+(*** PREDICADOS ***)
+(******************)
+
+PROCEDURE PerteneceASet (str: TString; set: Set): BOOLEAN;
+(* Devuelve TRUE si 'str' es un elemento de 'set', FALSE en otro caso. *)
+
+
+PROCEDURE EsVacioSet (set: Set): BOOLEAN;
+(* Devuelve TRUE si en 'set' no hay elementos, FALSE en otro caso. *)
+
+
+
+END Set.

@@ -1,0 +1,56 @@
+DEFINITION MODULE ColaBinario;
+(*******************************************************************************
+Modulo de definicion de ColaBinario.
+
+Es una cola no acotada de elementos de tipo Binario.
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
+
+
+FROM Binario IMPORT Binario;
+
+TYPE ColaBinario;
+
+(*********************)
+(*** CONSTRUCTORES ***)
+(*********************)
+
+PROCEDURE CrearColaBinario (): ColaBinario;
+(* Devuelve una cola vacia (sin elementos). *)
+
+PROCEDURE EncolarBinario (arbol: Binario; VAR c: ColaBinario);
+(* Encola el arbol binario de busqueda 'arbol' en la cola 'c'. *)
+
+(********************)
+(*** DESTRUCTORES ***)
+(********************)
+
+PROCEDURE DesencolarBinario (VAR c: ColaBinario);
+(* Si EsVaciaColaBinario (c) no hace nada.
+   En otro caso, desencola el primer arbol de la cola 'c'.
+   Se debe liberar la memoria del nodo sin destruir el arbol removido. *)
+
+PROCEDURE DestruirColaBinario (VAR c: ColaBinario);
+(* Libera la memoria asignada a 'c' y a todos sus elementos. *)
+
+(******************)
+(*** PREDICADOS ***)
+(******************)
+   
+PROCEDURE EsVaciaColaBinario (c: ColaBinario): BOOLEAN;
+(* Devuelve TRUE si la cola 'c' es vacia o FALSE en caso contrario. *)
+
+(******************)
+(*** SELECTORES ***)
+(******************)
+   
+PROCEDURE PrimeroColaBinario (c: ColaBinario): Binario;
+(* Precondicion: NOT EsVaciaColaBinario(c)
+   Devuelve el arbol ubicado en el primer lugar de la cola.
+   No remueve de la cola el arbol devuelto. *) 
+
+
+
+END ColaBinario.

@@ -1,0 +1,54 @@
+DEFINITION MODULE Pila;
+(*******************************************************************************
+Modulo de definicion de Pila.
+
+Es una pila no acotada elementos de tipo TInfo.
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
+
+
+FROM Utils IMPORT TInfo;
+
+TYPE Pila;
+
+(*********************)
+(*** CONSTRUCTORES ***)
+(*********************)
+
+PROCEDURE CrearPila (): Pila;
+(* Devuelve la pila vacia (sin elementos). *)
+
+PROCEDURE Apilar (info: TInfo; VAR p: Pila);
+(* Apila el elemento 'info' en la pila 'p', quedando en el tope de la misma. *)
+
+(********************)
+(*** DESTRUCTORES ***)
+(********************)
+
+PROCEDURE Desapilar (VAR p: Pila);
+(* Si EsVaciaPila (p), no hace nada.
+   En otro caso, desapila el elemento ubicando en el tope de 'p'.
+   Se debe liberar la memoria del nodo sin destruir el elemento removido. *)
+
+PROCEDURE DestruirPila (VAR p: Pila);
+(* Libera la memoria asignada a 'p' a todos sus elementos. *)
+
+(******************)
+(*** PREDICADOS ***)
+(******************)
+
+PROCEDURE EsVaciaPila (p: Pila): BOOLEAN;
+(* Devuelve TRUE si la pila 'p' es vacia o FALSE en caso contrario. *)
+
+(******************)
+(*** SELECTORES ***)
+(******************)
+
+PROCEDURE Tope (p: Pila): TInfo;
+(* Precondicion: NOT EsVaciaPila (p).
+   Devuelve el elemento ubicado en el tope de la pila 'p'. *)
+
+
+END Pila.

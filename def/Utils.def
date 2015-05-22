@@ -1,0 +1,66 @@
+DEFINITION MODULE Utils;
+(*******************************************************************************
+Modulo de definicion de Utils.
+
+En Utils se definen constantes, tipos y procedimientos de uso general.
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
+
+CONST
+   MAXLONGSTR = 63;
+   (* longitud maxima de los strings *)
+   
+         (* NUEVA *)
+   GENERICA = 100;
+   (* constante generica *)
+
+TYPE
+   TCritFiltro = (FltMenor, FltIgual, FltMayor);
+   (* Criterios para filtrar. Corresponden a los operadores de comparacion 
+   '<', '=' y '>' respectivamente. *)
+
+
+   TString = ARRAY [0 .. MAXLONGSTR] OF CHAR;
+   (* Tipo para los strings genericos. *)
+
+
+   TInfo; (* Opaco *)
+   (* Tipo generico utilizado en listas y arboles.
+      Consta de un dato numerico y un dato textual. *)
+
+
+(* Constructora, destructura y selectoras de TInfo. *)
+PROCEDURE CrearInfo (numero: CARDINAL; texto: TString): TInfo;
+(* Devuelve un TInfo tal que su dato numerico es 'numero' y su dato de texto
+   es 'texto'. *)
+
+PROCEDURE CopiaInfo (i: TInfo): TInfo;
+(* Devuelve una copia de 'i'. El elemento resultado no comparte memoria con 
+   'i'. *)   
+   
+PROCEDURE DestruirInfo (VAR i: TInfo);
+(* Libera la memoria reservada por TInfo. *)
+
+PROCEDURE NumeroInfo (i: TInfo): CARDINAL;
+(* Devuelve el dato numerico asociado a 'i'. *)
+
+PROCEDURE TextoInfo (i: TInfo): TString;
+(* Devuelve el dato de texto asociado a 'i'. *)
+
+PROCEDURE InfoAString (i: TInfo): TString;
+(* Devuelve un TString formado por la concatenacion del dato numerico de 'i',
+   el string "," y el dato de texto de 'i' encerrados entre parentesis.
+   Ejemplos:
+   (4,a)
+   (56,jojo)
+*)
+
+
+         (* NUEVA *)
+(* Operacion para facilitar la depuracion *)
+PROCEDURE Assert (condicion: BOOLEAN; mensaje: ARRAY OF CHAR);
+(* Si (NOT condicion) se imprime 'mensaje' y se detiene la ejecucion (HALT). *)
+
+END Utils.
