@@ -80,15 +80,19 @@ VAR
 BEGIN
 
 	a := CrearHoja();
-	l2 := PartirLista(l);
+	IF CantidadLista(l) > 1 THEN
+		l2 := PartirLista(l);
+	ELSE
+		l2 := l;
+	END;
 	IrInicioLista(l2);
-	a^.info := CrearInfo(0, ActualLista(l));
+	a^.info := CrearInfo(0, ActualLista(l2));
 	RemoverDeLista(l2);
 	IF NOT EsVaciaLista(l) THEN
 		a^.izquierdo := Balanceado(l);
 	END;
 	IF NOT EsVaciaLista(l2) THEN
-		a^.derecho := Balanceado(l);
+		a^.derecho := Balanceado(l2);
 	END;
 	RETURN a;
    
