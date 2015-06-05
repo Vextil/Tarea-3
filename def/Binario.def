@@ -71,7 +71,101 @@ PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario):
    derecha que la cumplen.  En ese caso, para mantener ordenado el
    arbol a devolver se siguen los mismos criterios que en RemoverABB.
    (ver ejemplos en LetraTarea2.pdf)
+   El arbol devuelto no comparte memoria con 'a'. 
+
+PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario): BoolBinario;
+(* Si ningun nodo de 'a' cumple la condicion "clave criterio NumeroInfo (nodo)",
+   devuelve un elemento cuyo discriminador 'hayBinario' es FALSE.
+   En otro caso, devuelve un arbol con los nodos que cumplen la condicion,
+   y 'hayBinario' es TRUE.
+   En general, en el arbol devuelto se debe mantener las relaciones
+   ancestro-descendendiente que hay en 'a'. La excepcion se da cuando un nodo
+   no cumple la condicion y tiene descendientes tanto por izquierda como por
+   derecha que la cumplen.  En ese caso, para mantener ordenado el
+   arbol a devolver se siguen los mismos criterios que en RemoverABB.
+   (ver ejemplos en LetraTarea2.pdf)
    El arbol devuelto no comparte memoria con 'a'. *)
+
+   PROCEDURE RemoverNodo (VAR a: Binario; esDerecho: BOOLEAN);
+   VAR aNuevo, aMenor: Binario;
+   BEGIN
+      aNuevo := NIL;
+      IF TieneHijoDerecho(a) AND TieneHijoIzquierdo(a) THEN
+         (* Busco el nodo para poner en lugar de "borrar" *)
+         aNuevo := a^.izquierdo;
+         WHILE TieneHijoDerecho(aNuevo) DO
+            aNuevo := aNuevo^.derecho;
+         END;
+         (* Separo "aNuevo" de el arbol *)
+         aNuevo^.padre^.derecho := NIL;
+         aNuevo^.padre := NIL;
+         (* Busco el menor de "aNuevo" *)
+         aMenor := aNuevo;
+         WHILE TieneHijoIzquierdo(aMenor) DO
+            aMenor := aMenor^.izquierdo;
+         END;
+         (* Muevo la rama izquierda de "a" a la mas izquierda de "aNuevo" *)
+         aMenor^.izquierdo := a^.izquierdo;
+         a^.izquierdo^.padre := aMenor;
+         (* Muevo la rama derecha de "a" a la derecha de "aNuevo" *)
+         aNuevo^.derecho := a^.derecho;
+         aNuevo^.derecho^.padre := aNuevo;
+      ELSIF TieneHijoDerecho(a) THEN
+         aNuevo := a^.derecho;
+      ELSIF TieneHijoIzquierdo(a) THEN
+         aNuevo := a^.izquierdo;
+      END;
+      IF TieneHijoDerecho(a) OR TieneHijoIzquierdo(a) THEN
+         (* Agrego a "aNuevo" en lugar de "a" *)
+         aNuevo^.padre := a^.padre;
+         IF NOT (aNuevo^.padre = NIL) THEN
+            IF esDerecho THEN
+               aNuevo^.padre^.derecho := aNuevo;
+            ELSE
+               aNuevo^.padre^.izquierdo := aNuevo;
+            END;
+         END;
+      END;
+     DestruirInfo(a^.info);
+     DISPOSE(a);
+     (* Fin *)
+     a := aNuevo;
+   END RemoverNodo;
+
+   PROCEDURE Filtro(clave: CARDINAL; criterio: TCritFiltro; VAR a: Binario; esDerecho: BOOLEAN): BOOLEAN;
+   VAR filtro: BOOLEAN;
+   BEGIN
+      filtro := FALSE;
+      IF TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, TRUE) THEN filtro := TRUE; END;
+      IF TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, FALSE) THEN filtro := TRUE; END;
+      IF ((criterio = FltMayor) AND (clave <= NumeroInfo(a^.info)))
+      OR ((criterio = FltMenor) AND (clave >= NumeroInfo(a^.info)))
+      OR ((criterio = FltIgual) AND (clave # NumeroInfo(a^.info))) THEN
+         RemoverNodo(a, esDerecho);
+         filtro := TRUE;
+      END;
+      RETURN filtro;
+   END Filtro;
+
+VAR 
+   nuevo : Binario;
+   resultado : BoolBinario;
+BEGIN
+
+   nuevo := CopiaBinario(a);
+   IF NOT EsHoja(nuevo) AND Filtro(clave, criterio, nuevo, FALSE) THEN
+      resultado.hayBinario := TRUE;
+      resultado.arbol := nuevo;
+   ELSE
+      DestruirBinario(nuevo);
+      resultado.hayBinario := FALSE;
+   END;
+   RETURN resultado;
+
+END Filtrar;
+
+
+   *)
    
    
 (********************)
