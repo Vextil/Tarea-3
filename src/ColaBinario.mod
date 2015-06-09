@@ -8,7 +8,7 @@ Es una cola no acotada de elementos de tipo Binario.
 Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
-
+FROM Storage IMPORT ALLOCATE, DEALLOCATE;
 FROM Binario IMPORT Binario, DestruirBinario;
 
 TYPE
