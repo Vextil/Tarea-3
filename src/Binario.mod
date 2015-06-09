@@ -9,7 +9,7 @@ FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista;
 
 TYPE Binario = POINTER TO Nodo;
      Nodo = RECORD
-               info : TInfo;
+               elemento : TInfo;
                padre : Binario;
                izquierdo : Binario;
                derecho: Binario;
@@ -25,7 +25,7 @@ VAR hoja : Binario;
 BEGIN
 
    NEW(hoja);
-   hoja^.info := i;
+   hoja^.elemento := i;
    hoja^.padre := NIL;
    hoja^.izquierdo := NIL;
    hoja^.derecho := NIL;
@@ -43,7 +43,7 @@ PROCEDURE CopiaBinario (a: Binario): Binario;
 	PROCEDURE RecrearNodo(nodo: Binario): Binario;
 	VAR nuevo : Binario;
 	BEGIN
-		nuevo := CrearHoja(CrearInfo(NumeroInfo(nodo^.info), TextoInfo(nodo^.info)));
+		nuevo := CrearHoja(CrearInfo(NumeroInfo(nodo^.elemento), TextoInfo(nodo^.elemento)));
 		RETURN nuevo;
 	END RecrearNodo;
 
@@ -86,7 +86,7 @@ BEGIN
 		l2 := l;
 	END;
 	IrInicioLista(l2);
-	a^.info := CrearInfo(0, ActualLista(l2));
+	a^.elemento := CrearInfo(0, ActualLista(l2));
 	RemoverDeLista(l2);
 	IF NOT EsVaciaLista(l) THEN
 		a^.izquierdo := Balanceado(l);
@@ -111,7 +111,7 @@ BEGIN
    binarioLoop := a;
    continue := TRUE;
    WHILE continue DO 
-   		comparacion := Compare(TextoInfo(i), TextoInfo(binarioLoop^.info));
+   		comparacion := Compare(TextoInfo(i), TextoInfo(binarioLoop^.elemento));
 		IF comparacion = greater THEN
             IF NOT TieneHijoDerecho(binarioLoop) THEN
                binarioLoop^.derecho := CrearHoja(i);
@@ -154,10 +154,10 @@ PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario): BoolBina
 		filtro := FALSE;
 		IF TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, nuevo) THEN filtro := TRUE; END;
 		IF TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, nuevo) THEN filtro := TRUE; END;
-		IF ((criterio = FltMayor) AND (clave > NumeroInfo(a^.info)))
-		OR ((criterio = FltMenor) AND (clave < NumeroInfo(a^.info)))
-		OR ((criterio = FltIgual) AND (clave = NumeroInfo(a^.info))) THEN
-			InsertarEnBinario(a^.info, nuevo);
+		IF ((criterio = FltMayor) AND (clave > NumeroInfo(a^.elemento)))
+		OR ((criterio = FltMenor) AND (clave < NumeroInfo(a^.elemento)))
+		OR ((criterio = FltIgual) AND (clave = NumeroInfo(a^.elemento))) THEN
+			InsertarEnBinario(a^.elemento, nuevo);
 			filtro := TRUE;
 		END;
 		RETURN filtro;
@@ -234,7 +234,7 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
 				END;
 			END;
 		END;
-		DestruirInfo(a^.info);
+		DestruirInfo(a^.elemento);
 		DISPOSE(a);
 		(* Fin *)
 		a := aNuevo;
@@ -243,7 +243,7 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
    PROCEDURE Iterar (txt: TString; a: Binario; esDerecho: BOOLEAN);
    BEGIN
       IF NOT (a = NIL) THEN
-         CASE Compare(txt, TextoInfo(a^.info)) OF
+         CASE Compare(txt, TextoInfo(a^.elemento)) OF
             greater: Iterar(txt, a^.derecho, TRUE); |
             less: Iterar(txt, a^.izquierdo, FALSE); |
             equal: RemoverNodo(a, esDerecho); 
@@ -269,7 +269,7 @@ BEGIN
    IF TieneHijoDerecho(a) THEN
       DestruirBinario(a^.derecho);
    END;
-   DestruirInfo(a^.info);
+   DestruirInfo(a^.elemento);
    DISPOSE(a);
    
 END DestruirBinario;
@@ -325,7 +325,7 @@ PROCEDURE RaizBinario (a: Binario): TInfo;
 (* Devuelve el elemento del nodo que esta en la raiz de 'a'. *)
 BEGIN
 
-   RETURN a^.info;
+   RETURN a^.elemento;
    
 END RaizBinario;
 
@@ -405,7 +405,7 @@ PROCEDURE Linealizacion (a: Binario): ListaString;
 
 	PROCEDURE Recorrer(a: Binario; VAR l: ListaString);
 	BEGIN
-		InsertarEnLista(TextoInfo(a^.info), l);
+		InsertarEnLista(TextoInfo(a^.elemento), l);
 		IF TieneHijoIzquierdo(a) THEN
 			Recorrer(Izquierdo(a), l);
 		END;
@@ -478,7 +478,7 @@ PROCEDURE ImprimirBinario (a: Binario);
          WriteString(" ");
          INC(espaciosImpresos);
       END;
-      WriteString(InfoAString(a^.info));
+      WriteString(InfoAString(a^.elemento));
       WriteLn();
       IF TieneHijoIzquierdo(a) THEN
          ImprimirNodos(a^.izquierdo, espacios);
