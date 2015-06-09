@@ -18,7 +18,7 @@ TYPE
 	Posicion = POINTER TO Nodo; 
 
 PROCEDURE CrearLista (): ListaString;
-VAR lista: ListaString;
+VAR lista : ListaString;
 BEGIN
    
 	NEW(lista);
@@ -30,9 +30,10 @@ BEGIN
 END CrearLista;
    
 PROCEDURE CopiaLista (l: ListaString): ListaString;
-VAR i: CARDINAL;
-	nueva: ListaString;
-	nodo: Posicion;
+VAR 
+	i : CARDINAL;
+	nueva : ListaString;
+	nodo : Posicion;
 BEGIN
    
 	nueva := CrearLista();
@@ -62,7 +63,7 @@ BEGIN
 END CopiaLista;
 
 PROCEDURE InsertarEnLista (txt: TString; VAR l: ListaString);
-VAR nodo: Posicion;
+VAR nodo : Posicion;
 BEGIN
 
 	INC(l^.cantidad);
@@ -79,9 +80,9 @@ END InsertarEnLista;
 
 PROCEDURE PartirLista (VAR l: ListaString): ListaString;
 VAR 
-	i, mitad: CARDINAL;
-	nueva: ListaString;
-	loop: Posicion;
+	i, mitad : CARDINAL;
+	nueva : ListaString;
+	loop : Posicion;
 BEGIN
    
 	mitad := CantidadLista(l) DIV 2;
@@ -104,7 +105,7 @@ BEGIN
 END PartirLista;
   
 PROCEDURE RemoverDeLista (VAR l: ListaString);
-VAR actual: Posicion;
+VAR actual : Posicion;
 BEGIN
 
 	IF EsPosicionValida(l) THEN
@@ -216,7 +217,7 @@ BEGIN
 END CantidadLista;
    
 PROCEDURE ImprimirLista (l: ListaString);
-VAR listaLoop: Posicion;
+VAR listaLoop : Posicion;
 BEGIN
 
 	IF NOT EsVaciaLista(l) THEN
