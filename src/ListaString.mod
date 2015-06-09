@@ -1,5 +1,14 @@
 (* 4623178 *)
 IMPLEMENTATION MODULE ListaString;
+(*******************************************************************************
+Modulo de definicion de ListaString.
+
+Es una lista no acotada de elementos de tipo TString.
+Mantiene de manera implicita la posicion actual.
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
 
 FROM Utils IMPORT TString;
 FROM Strings IMPORT CompareResults, Compare;
@@ -17,7 +26,14 @@ TYPE
 	       END;
 	Posicion = POINTER TO Nodo; 
 
+(*********************)
+(*** CONSTRUCTORES ***)
+(*********************)
+
 PROCEDURE CrearLista (): ListaString;
+(* Devuelve la lista vacia (sin elementos) 
+   La posicion actual no es valida.
+   El tiempo de ejecucion es O(1). *)
 VAR lista : ListaString;
 BEGIN
    
@@ -30,6 +46,10 @@ BEGIN
 END CrearLista;
    
 PROCEDURE CopiaLista (l: ListaString): ListaString;
+(* Devuelve una copia de 'l'. La lista resultado no comparte memoria con 'l'.
+   No se modifica la posicion actual.
+   En la lista resultado la posicion actual no es valida.   
+   El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 VAR 
 	i : CARDINAL;
 	nueva : ListaString;
@@ -63,6 +83,9 @@ BEGIN
 END CopiaLista;
 
 PROCEDURE InsertarEnLista (txt: TString; VAR l: ListaString);
+(* Inserta el texto 'txt' al final de la lista 'l'.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(1). *)
 VAR nodo : Posicion;
 BEGIN
 
@@ -79,6 +102,11 @@ BEGIN
 END InsertarEnLista;
 
 PROCEDURE PartirLista (VAR l: ListaString): ListaString;
+(* Precondicion: CantidadLista (l) > 1.
+   Parte 'l' en dos mitades. Los primeros n DIV 2 elementos quedan en 'l'
+   y el resto en la lista que se devuelve, siendo n = CantidadLista (l).
+   Al terminar, en ambas listas las posiciones actuales son no validas.
+   El tiempo de ejecucion es O(n). *) 
 VAR 
 	i, mitad : CARDINAL;
 	nueva : ListaString;
@@ -103,8 +131,17 @@ BEGIN
 	RETURN nueva;
 
 END PartirLista;
-  
+
+(********************)
+(*** DESTRUCTORES ***)
+(********************)
+
 PROCEDURE RemoverDeLista (VAR l: ListaString);
+(* Si EsVaciaLista (l) o NOT EsPosicionValida (l) no hace nada. 
+   En otro caso, remueve de 'l' el elemento que esta en la posicion actual. 
+   La posicion actual se ubica en el siguiente elemento o, si estaba en
+   el ultimo de 'l', deja de ser valida.
+   El tiempo de ejecucion es O(1). *)
 VAR actual : Posicion;
 BEGIN
 
@@ -133,6 +170,8 @@ BEGIN
 END RemoverDeLista;
 
 PROCEDURE DestruirLista (VAR l: ListaString);
+(* Libera la memoria asignada a 'l' y a todos sus elementos.
+   El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 
    PROCEDURE DestruirPosiciones (VAR p: Posicion);
    BEGIN
@@ -151,7 +190,14 @@ BEGIN
 
 END DestruirLista;
    
+(******************)
+(*** PREDICADOS ***)
+(******************)
+
 PROCEDURE EsVaciaLista (l: ListaString): BOOLEAN;
+(* Devuelve TRUE si 'l' es vacia o FALSE en caso contrario.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
 
 	RETURN l^.cantidad = 0;
@@ -159,6 +205,11 @@ BEGIN
 END EsVaciaLista;
 
 PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;   
+(* Precondicion: NOT EsVaciaLista (l).
+   Devuelve TRUE si la posicion actual de 'l' es valida (o sea, si esta en 
+   alguno de los elementos de 'l') o FALSE en caso contrario.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
 
 	RETURN l^.actual # NIL;
@@ -166,6 +217,10 @@ BEGIN
 END EsPosicionValida;
    
 PROCEDURE EstaOrdenadaLista (l: ListaString): BOOLEAN;
+(* Devuelve TRUE si 'l' esta en orden lexicografico creciente estricto (sin
+   elementos repetidos) o FALSE en caso contrario.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 
 	PROCEDURE SiguienteEsMayor(p: Posicion): BOOLEAN;
 	BEGIN
@@ -184,7 +239,14 @@ BEGIN
    
 END EstaOrdenadaLista;
 
+(*******************)
+(* POSICIONAMIENTO *)
+(*******************)
+
 PROCEDURE IrInicioLista (VAR l: ListaString);
+(* Precondicion: NOT EsVaciaLista (l).
+   Ubica la posicion actual en el primer elemento de 'l'.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
 
 	l^.actual := l^.inicio;
@@ -192,6 +254,11 @@ BEGIN
 END IrInicioLista;
 
 PROCEDURE IrSiguienteLista (VAR l: ListaString);
+(* Precondicion: EsPosicionValida (l).
+   Ubica la posicion actual en el elemento siguiente del que estaba.
+   Si la posicion actual estaba en el ultimo elemento de 'l', entonces 
+   deja de ser valida.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
 
 	IF l^.actual = l^.final THEN
@@ -202,7 +269,15 @@ BEGIN
    
 END IrInicioLista;
 
+(******************)
+(*** SELECTORES ***)
+(******************)
+  
 PROCEDURE ActualLista (l: ListaString): TString;
+(* Precondicion: EsPosicionValida (l).
+   Devuelve el elemento de 'l' en el que esta la posicion actual.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
    
 	RETURN l^.actual^.elemento;
@@ -210,13 +285,24 @@ BEGIN
 END ActualLista;
    
 PROCEDURE CantidadLista (l: ListaString): CARDINAL;
+(* Devuelve la cantidad de elementos en 'l'.
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(1). *)
 BEGIN
    
 	RETURN l^.cantidad;
 
 END CantidadLista;
-   
+      
+(********************)
+(****** SALIDA ******)
+(********************)
+
 PROCEDURE ImprimirLista (l: ListaString);
+(* Imprime cada elemento de 'l' desde el primero hasta el ultimo con un espacio
+   en blanco despues de cada uno. 
+   No se modifica la posicion actual.
+   El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 VAR listaLoop : Posicion;
 BEGIN
 

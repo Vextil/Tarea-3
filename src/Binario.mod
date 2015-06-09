@@ -1,5 +1,15 @@
 (* 4623178 *)
 IMPLEMENTATION MODULE Binario;
+(*******************************************************************************
+Modulo de implementacion de Binario.
+
+Es un arbol binario de busqueda de elementos de tipo TInfo, ordenado segun el
+dato de tipo texto.
+No hay arbol vacio.
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
 
 FROM Utils IMPORT TCritFiltro, TInfo, TString, CrearInfo, InfoAString, PartirLista, IrInicioLista;
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
