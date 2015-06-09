@@ -9,10 +9,9 @@ Mantiene de manera implicita la posicion actual.
 Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
-
-FROM Utils IMPORT TString;
-FROM Strings IMPORT CompareResults, Compare;
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
+FROM Strings IMPORT CompareResults, Compare;
+FROM Utils IMPORT TString;
 
 TYPE
 	ListaString = POINTER TO TipoLista;
