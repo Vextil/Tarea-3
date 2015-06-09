@@ -8,7 +8,7 @@ Es una pila no acotada elementos de tipo TInfo.
 Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
-
+FROM Storage IMPORT ALLOCATE, DEALLOCATE;
 FROM Utils IMPORT TInfo, DestruirInfo;
 
 TYPE 
