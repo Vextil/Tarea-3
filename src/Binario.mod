@@ -10,12 +10,12 @@ No hay arbol vacio.
 Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
-
-FROM Utils IMPORT TCritFiltro, TInfo, TString, CrearInfo, InfoAString, PartirLista, IrInicioLista;
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
 FROM STextIO IMPORT WriteString, WriteLn;
 FROM Strings IMPORT CompareResults, Compare, Append;
-FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista;
+
+FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString;
+FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista;
 
 TYPE Binario = POINTER TO Nodo;
      Nodo = RECORD
