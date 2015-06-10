@@ -15,14 +15,12 @@ FROM STextIO IMPORT WriteString, WriteLn;
 FROM Strings IMPORT CompareResults, Compare, Append;
 
 FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString;
-FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista;
+FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, DestruirLista;
 
 TYPE Binario = POINTER TO Nodo;
      Nodo = RECORD
                elemento : TInfo;
-               padre : Binario;
-               izquierdo : Binario;
-               derecho: Binario;
+               padre, izquierdo, derecho : Binario;
             END;
 
 (*********************)
@@ -100,9 +98,13 @@ BEGIN
 	RemoverDeLista(l2);
 	IF NOT EsVaciaLista(l) THEN
 		a^.izquierdo := Balanceado(l);
+		a^.izquierdo^.padre := a;
+		DestruirLista(l);
 	END;
 	IF NOT EsVaciaLista(l2) THEN
 		a^.derecho := Balanceado(l2);
+		a^.derecho^.padre := a;
+		DestruirLista(l2);
 	END;
 	RETURN a;
    
@@ -429,6 +431,7 @@ BEGIN
 
 	l := CrearLista();
 	Recorrer(a, l);
+	IrInicioLista(l);
 	RETURN l;
    
 END Linealizacion;
