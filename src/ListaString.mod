@@ -121,10 +121,12 @@ BEGIN
 			l^.final := loop^.anterior;
 			l^.final^.siguiente := NIL;
 			l^.actual := NIL;
+			nueva^.cantidad := l^.cantidad - mitad;
 			nueva^.inicio := loop;
 			nueva^.inicio^.anterior := NIL;
 			nueva^.final := l^.final;
 			nueva^.actual := NIL;
+			l^.cantidad := mitad;
 		END;
 	END;
 	RETURN nueva;
