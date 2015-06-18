@@ -1,0 +1,80 @@
+# Binario
+# hoja
+CrearBinario solo 5 1 FIN
+AlturaCantidadBinario 1
+Izquierdo 1 2
+Derecho 1 3
+Linealizar 1 1
+ImprimirBinario 1
+ImprimirLista 1
+BuscarABB 1 no_esta
+FiltroBinario 1 2 < 4
+FiltroBinario 1 2 > 5
+ImprimirBinario 4
+# raiz e hijo izquierdo
+CrearBinario tiene 5 1 izquierdo 1 FIN
+AlturaCantidadBinario 1
+Izquierdo 1 2
+Derecho 1 3
+ImprimirBinario 2
+Linealizar 1 1
+ImprimirBinario 1
+ImprimirLista 1
+BuscarABB 1 no_esta
+FiltroBinario 1 2 < 4
+FiltroBinario 1 2 > 5
+ImprimirBinario 4
+ImprimirBinario 5
+# raiz e hijo derecho
+CrearBinario con 5 1 derecho 1 FIN
+AlturaCantidadBinario 1
+Izquierdo 1 2
+Derecho 1 3
+ImprimirBinario 3
+Linealizar 1 1
+ImprimirBinario 1
+ImprimirLista 1
+BuscarABB 1 no_esta
+FiltroBinario 1 2 < 4
+FiltroBinario 1 2 > 5
+ImprimirBinario 4
+ImprimirBinario 5
+# Balanceado de 1 y 2 elementos
+CrearLista 1 solo FIN
+CrearBalanceado 1 1
+AlturaCantidadBinario 1
+CrearLista 1 con derecho FIN
+CrearBalanceado 1 1
+ImprimirBinario 1
+# arbol hacia la derecha
+CrearBinario ahora 0 1 beber 1 con 2 feliz 3 jugo 4 loco 5 otro 6 que 7 rie 8 sin 9 tomar 10 whisky 11 FIN
+ImprimirBinario 1
+Linealizar 1 1
+ImprimirLista 1
+# arbol hacia la izquierda
+CrearBinario whisky 0 1 tomar 1 sin 2 rie 3 que 4 otro 5 loco 6 jugo 7 feliz 8 con 9 beber 10 ahora 11 FIN
+ImprimirBinario 1
+Linealizar 1 1
+ImprimirLista 1
+# balanceado de 12
+CrearLista 1 ahora beber con feliz jugo loco otro que rie sin tomar whisky FIN
+CrearBalanceado 1 1
+AlturaCantidadBinario 1
+ImprimirBinario 1
+# otros
+CrearBinario martes 5 1 dia 4 gran 4 altura 2 tambien 9 zoo 12 water 43 ya 12 FIN
+AlturaCantidadBinario 1
+FiltroBinario 1 2 < 4
+BuscarABB 1 ahora
+BuscarABB 1 dia
+Linealizar 1 2
+Izquierdo 1 2
+Derecho 1 3
+RemoverBinario 1 ahora
+RemoverBinario 1 tambien
+ImprimirBinario 1
+ImprimirBinario 2
+ImprimirBinario 3
+ImprimirBinario 4
+ImprimirLista 2
+Fin

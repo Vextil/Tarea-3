@@ -11,14 +11,14 @@ InCo-FI-UDELAR
 CONST
    MAXLONGSTR = 63;
    (* longitud maxima de los strings *)
-   
+
          (* NUEVA *)
    GENERICA = 100;
    (* constante generica *)
 
 TYPE
    TCritFiltro = (FltMenor, FltIgual, FltMayor);
-   (* Criterios para filtrar. Corresponden a los operadores de comparacion 
+   (* Criterios para filtrar. Corresponden a los operadores de comparacion
    '<', '=' y '>' respectivamente. *)
 
 
@@ -27,7 +27,7 @@ TYPE
 
 
    TInfo; (* Opaco *)
-   (* Tipo generico utilizado en listas y arboles.
+   (* Tipo generico.
       Consta de un dato numerico y un dato textual. *)
 
 
@@ -37,9 +37,9 @@ PROCEDURE CrearInfo (numero: CARDINAL; texto: TString): TInfo;
    es 'texto'. *)
 
 PROCEDURE CopiaInfo (i: TInfo): TInfo;
-(* Devuelve una copia de 'i'. El elemento resultado no comparte memoria con 
-   'i'. *)   
-   
+(* Devuelve una copia de 'i'. El elemento resultado no comparte memoria con
+   'i'. *)
+
 PROCEDURE DestruirInfo (VAR i: TInfo);
 (* Libera la memoria reservada por TInfo. *)
 
@@ -61,6 +61,7 @@ PROCEDURE InfoAString (i: TInfo): TString;
          (* NUEVA *)
 (* Operacion para facilitar la depuracion *)
 PROCEDURE Assert (condicion: BOOLEAN; mensaje: ARRAY OF CHAR);
-(* Si (NOT condicion) se imprime 'mensaje' y se detiene la ejecucion (HALT). *)
+(* Si (NOT condicion) se imprime "ERROR:" y 'mensaje' y se detiene la ejecucion
+  (HALT). *)
 
 END Utils.

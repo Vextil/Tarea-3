@@ -1,0 +1,70 @@
+1># ColaBinario
+2>La cola estaba vacia.
+3>OK
+4>OK
+5>OK
+6>OK
+7>OK
+8>OK
+9>OK
+10>OK
+11>
+   (12,zoo)
+     (12,ya)
+    (43,water)
+  (9,tambien)
+ (5,martes)
+   (4,gran)
+  (4,dia)
+   (2,altura)
+
+12>La cola estaba vacia.
+13>OK
+14>OK
+15>OK
+16>OK
+17>OK
+18>OK
+19>OK
+20>
+   (12,zoo)
+     (12,ya)
+    (43,water)
+  (9,tambien)
+ (5,martes)
+   (4,gran)
+  (4,dia)
+   (2,altura)
+
+21>
+  (4,gran)
+ (4,dia)
+  (2,altura)
+
+22>
+  (12,zoo)
+    (12,ya)
+   (43,water)
+ (9,tambien)
+
+23>
+ (2,altura)
+
+24>
+ (4,gran)
+
+25>
+ (12,zoo)
+   (12,ya)
+  (43,water)
+
+26>
+   (12,zoo)
+     (12,ya)
+    (43,water)
+  (9,tambien)
+ (5,martes)
+   (4,gran)
+  (4,dia)
+
+27>Fin

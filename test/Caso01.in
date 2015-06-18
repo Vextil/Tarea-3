@@ -1,0 +1,25 @@
+# Lista
+CrearLista 1 FIN
+CopiaLista 1 2
+ImprimirLista 2
+CrearLista 1 cuatro FIN
+CopiaLista 1 2
+ImprimirLista 2
+CrearLista 1 cinco cuatro seis uno segunda mitad de la lista FIN
+CopiaLista 1 2
+ImprimirLista 2
+PartirLista 1 3
+ImprimirLista 1
+ImprimirLista 3
+PartirLista 3 2
+ImprimirLista 2
+ImprimirLista 3
+RemoverDeLista 1 1
+RemoverDeLista 1 3
+ImprimirLista 1
+PartirLista 3 4
+ImprimirLista 3
+ImprimirLista 4
+RemoverDeLista 4 1
+ImprimirLista 4
+Fin

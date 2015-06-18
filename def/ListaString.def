@@ -19,14 +19,14 @@ TYPE ListaString;
 (*********************)
 
 PROCEDURE CrearLista (): ListaString;
-(* Devuelve la lista vacia (sin elementos) 
+(* Devuelve la lista vacia (sin elementos)
    La posicion actual no es valida.
    El tiempo de ejecucion es O(1). *)
-   
+
 PROCEDURE CopiaLista (l: ListaString): ListaString;
 (* Devuelve una copia de 'l'. La lista resultado no comparte memoria con 'l'.
    No se modifica la posicion actual.
-   En la lista resultado la posicion actual no es valida.   
+   En la lista resultado la posicion actual no es valida.
    El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 
 PROCEDURE InsertarEnLista (txt: TString; VAR l: ListaString);
@@ -39,15 +39,15 @@ PROCEDURE PartirLista (VAR l: ListaString): ListaString;
    Parte 'l' en dos mitades. Los primeros n DIV 2 elementos quedan en 'l'
    y el resto en la lista que se devuelve, siendo n = CantidadLista (l).
    Al terminar, en ambas listas las posiciones actuales son no validas.
-   El tiempo de ejecucion es O(n). *)   
-   
+   El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
+
 (********************)
 (*** DESTRUCTORES ***)
 (********************)
 
 PROCEDURE RemoverDeLista (VAR l: ListaString);
-(* Si EsVaciaLista (l) o NOT EsPosicionValida (l) no hace nada. 
-   En otro caso, remueve de 'l' el elemento que esta en la posicion actual. 
+(* Si EsVaciaLista (l) o NOT EsPosicionValida (l) no hace nada.
+   En otro caso, remueve de 'l' el elemento que esta en la posicion actual.
    La posicion actual se ubica en el siguiente elemento o, si estaba en
    el ultimo de 'l', deja de ser valida.
    El tiempo de ejecucion es O(1). *)
@@ -55,7 +55,7 @@ PROCEDURE RemoverDeLista (VAR l: ListaString);
 PROCEDURE DestruirLista (VAR l: ListaString);
 (* Libera la memoria asignada a 'l' y a todos sus elementos.
    El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
-   
+
 (******************)
 (*** PREDICADOS ***)
 (******************)
@@ -65,13 +65,13 @@ PROCEDURE EsVaciaLista (l: ListaString): BOOLEAN;
    No se modifica la posicion actual.
    El tiempo de ejecucion es O(1). *)
 
-PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;   
+PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;
 (* Precondicion: NOT EsVaciaLista (l).
-   Devuelve TRUE si la posicion actual de 'l' es valida (o sea, si esta en 
+   Devuelve TRUE si la posicion actual de 'l' es valida (o sea, si esta en
    alguno de los elementos de 'l') o FALSE en caso contrario.
    No se modifica la posicion actual.
    El tiempo de ejecucion es O(1). *)
-   
+
 PROCEDURE EstaOrdenadaLista (l: ListaString): BOOLEAN;
 (* Devuelve TRUE si 'l' esta en orden lexicografico creciente estricto (sin
    elementos repetidos) o FALSE en caso contrario.
@@ -90,32 +90,32 @@ PROCEDURE IrInicioLista (VAR l: ListaString);
 PROCEDURE IrSiguienteLista (VAR l: ListaString);
 (* Precondicion: EsPosicionValida (l).
    Ubica la posicion actual en el elemento siguiente del que estaba.
-   Si la posicion actual estaba en el ultimo elemento de 'l', entonces 
+   Si la posicion actual estaba en el ultimo elemento de 'l', entonces
    deja de ser valida.
    El tiempo de ejecucion es O(1). *)
 
 (******************)
 (*** SELECTORES ***)
 (******************)
-  
+
 PROCEDURE ActualLista (l: ListaString): TString;
 (* Precondicion: EsPosicionValida (l).
    Devuelve el elemento de 'l' en el que esta la posicion actual.
    No se modifica la posicion actual.
    El tiempo de ejecucion es O(1). *)
-   
+
 PROCEDURE CantidadLista (l: ListaString): CARDINAL;
 (* Devuelve la cantidad de elementos en 'l'.
    No se modifica la posicion actual.
    El tiempo de ejecucion es O(1). *)
-   
+
 (********************)
 (****** SALIDA ******)
 (********************)
-   
+
 PROCEDURE ImprimirLista (l: ListaString);
 (* Imprime cada elemento de 'l' desde el primero hasta el ultimo con un espacio
-   en blanco despues de cada uno. 
+   en blanco despues de cada uno.
    No se modifica la posicion actual.
    El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 

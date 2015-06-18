@@ -1,0 +1,65 @@
+IMPLEMENTATION MODULE Procesos;
+(*******************************************************************************
+Modulo de implementacion de Procesos.
+
+Procesos es una coleccion no vacia de elementos de tipo Proceso organizados en un
+arbol binario de busqueda.
+Los elementos de tipo Proceso tienen un dato identificador de tipo texto
+(TString) y un dato numerico que representa la cantidad de memoria usada.
+
+
+Laboratorio de Programacion 2.
+InCo-FI-UDELAR
+*******************************************************************************)
+
+FROM ListaString IMPORT ListaString;
+FROM Utils       IMPORT TString;
+
+TYPE
+   Procesos;
+
+PROCEDURE CrearProcesos (texto: TString; num: CARDINAL): Procesos;
+(* Devuelve una coleccion de procesos conteniendo unicamente un Proceso con dato
+   de texto 'texto' y dato numerico 'num'. *)
+
+PROCEDURE AgregarProceso (texto: TString; num: CARDINAL; VAR p: Procesos);
+(* Si en 'p' ya hay un elemento con dato de texto 'texto', no hace nada.
+   De lo contrario, agrega en 'p' un Proceso con dato de texto 'texto' y dato
+   numerico 'num'. *)
+
+PROCEDURE EliminarProceso (texto: TString; VAR p: Procesos);
+(* Si en 'p' no hay un elemento con dato de texto 'texto', no hace nada.
+   Si en 'p' hay un solo elemento y su dato de texto es 'texto', destruye 'p'.
+   De lo contrario, elimina de 'p' el elemento cuyo dato de texto es 'texto' y
+   libera la memoria asignada al mismo. *)
+
+PROCEDURE CantidadProcesos (p: Procesos): CARDINAL;
+(* Devuelve la cantidad de elementos de 'p'. *)
+
+PROCEDURE IncluyeProceso (texto: TString; p: Procesos): BOOLEAN;
+(* Devuelve TRUE si en 'p' hay un elemento con dato de texto 'texto' o
+   FALSE en caso contrario. *)
+
+PROCEDURE ValorProceso (texto: TString; p: Procesos): CARDINAL;
+(*  Precondicion: IncluyeProceso (texto, p).
+    Devuelve el dato numerico del elemento de 'p' con dato de texto 'texto'. *)
+
+PROCEDURE ImprimirProcesos (p: Procesos);
+(* Imprime el arbol de procesos, un nivel por linea, de abajo hacia arriba y
+   de izquierda a derecha.
+   Cada elemento se imprime con el formato (numero,texto) seguido de un espacio
+   en blanco. *)
+
+PROCEDURE ListarProcesos (p: Procesos): ListaString;
+(* Devuelve una lista en orden lexicografico creciente de los identificadores de
+   proceso de 'p'. *) 
+
+PROCEDURE MuyConsumidores (mem: CARDINAL; p: Procesos): ListaString;
+(* Devuelve una lista en orden lexicografico creciente de los identificadores de
+   proceso de 'p' que la memoria que consumen es mayor a 'mem'. *)   
+   
+PROCEDURE DestruirProcesos (VAR p: Procesos);
+(* Libera la memoria asociada a 'p' y a todos sus elementos. *)
+
+
+END Procesos.

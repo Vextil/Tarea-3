@@ -1,0 +1,16 @@
+AgregarProcesos chrome 12 FIN
+ImprimirProcesos
+EliminarProceso chrome
+ImprimirProcesos
+Reinicio
+AgregarProcesos gedit 93 kdenlive 423 gnome 33 thunderbird 99 FIN
+ImprimirProcesos
+AgregarProcesos gedit 754 FIN
+ImprimirProcesos
+EliminarProceso firefox
+ImprimirProcesos
+ListarProcesos
+MuyConsumidores 10
+MuyConsumidores 95
+MuyConsumidores 900
+Fin

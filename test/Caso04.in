@@ -1,0 +1,27 @@
+# ColaBinario
+Desencolar
+CrearBinario martes 5 1 dia 4 gran 4 altura 2 tambien 9 zoo 12 water 43 ya 12 FIN
+Izquierdo 1 2
+Derecho 1 3
+Izquierdo 2 4
+Derecho 2 5
+Derecho 3 6
+FiltroBinario 1 2 < 7
+Encolar 1
+Desencolar
+Desencolar
+Encolar 1
+Encolar 2
+Encolar 3
+Encolar 4
+Encolar 5
+Encolar 6
+Encolar 7
+Desencolar
+Desencolar
+Desencolar
+Desencolar
+Desencolar
+Desencolar
+Desencolar
+Fin

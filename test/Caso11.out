@@ -1,0 +1,6 @@
+1># stress ListaString
+2># Prueba de orden de tiempo
+3>Fin Insertar. Fin Cantidad. Fin Remover. 
+4># Prueba de uso de memoria
+5>Fin Destruir. Fin Remover. 
+6>Fin

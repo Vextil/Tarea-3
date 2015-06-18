@@ -1,0 +1,62 @@
+# Set
+CrearLista 1 FIN
+ConstruirSet 1 1 
+# conjunto vacio
+PerteneceASet 1 1
+CrearLista 2 algo FIN
+ConstruirSet 2 2 
+UnionInterDif 1 2 3 4 5 6 
+# el conjunto 1 esta vacio, el 2 con un elemento
+PerteneceASet 1 2
+PerteneceASet 2 2
+PerteneceASet 3 2
+PerteneceASet 4 2
+PerteneceASet 5 2
+PerteneceASet 6 2
+CrearLista 1 interseccion soloen1 FIN
+ConstruirSet 1 1
+CopiarSet 1 2
+CrearLista 2 FIN
+# Remover con lista vacia
+RemoverDeSet 2 2
+# Insertar con lista vacia
+InsertarEnSet 2 2
+UnionInterDif 1 2 3 4 5 6 
+# los conjuntos 1 y 2 son iguales, con dos elementos
+PerteneceASet 1 1
+PerteneceASet 2 1
+PerteneceASet 3 1
+PerteneceASet 4 1
+PerteneceASet 5 1
+PerteneceASet 6 1
+CrearLista 2 soloen1 noestaba FIN
+RemoverDeSet 2 2
+CrearLista 2 interseccion noestaba FIN
+InsertarEnSet 2 2 
+UnionInterDif 1 2 3 4 5 6 
+CrearLista 3 interseccion soloen1 noestaba FIN
+# conjuntos 1 y 2 tienen un elemento en comun y otro diferente  
+PerteneceASet 1 3
+PerteneceASet 2 3
+PerteneceASet 3 3
+PerteneceASet 4 3
+PerteneceASet 5 3
+PerteneceASet 6 3
+CrearLista 1 este conjunto es mas grande que los anteriores tiene mas de diez elementos FIN
+ConstruirSet 1 1
+CopiarSet 1 2
+UnionInterDif 1 2 3 4 5 6 
+# dos conjuntos iguales con mas elementos que antes
+PerteneceASet 1 1
+PerteneceASet 2 1
+PerteneceASet 3 1
+PerteneceASet 4 1
+PerteneceASet 5 1
+PerteneceASet 6 1
+CrearLista 2 interseccion vacia con el otro FIN
+ConstruirSet 2 2 
+UnionInterDif 1 2 3 4 5 6 
+# interseccion vacia de dos conjuntos de varios elementos
+PerteneceASet 4 1
+PerteneceASet 4 2 
+Fin

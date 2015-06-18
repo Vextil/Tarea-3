@@ -1,0 +1,62 @@
+1># Set
+2>OK
+3>OK
+4># conjunto vacio
+5>La lista esta vacia.
+6>OK
+7>OK
+8>OK
+9># el conjunto 1 esta vacio, el 2 con un elemento
+10>NO 
+11>SI 
+12>SI 
+13>NO 
+14>NO 
+15>SI 
+16>OK
+17>OK
+18>OK
+19>OK
+20># Remover con lista vacia
+21>OK
+22># Insertar con lista vacia
+23>OK
+24>OK
+25># los conjuntos 1 y 2 son iguales, con dos elementos
+26>SI SI 
+27>SI SI 
+28>SI SI 
+29>SI SI 
+30>NO NO 
+31>NO NO 
+32>OK
+33>OK
+34>OK
+35>OK
+36>OK
+37>OK
+38># conjuntos 1 y 2 tienen un elemento en comun y otro diferente  
+39>SI SI NO 
+40>SI NO SI 
+41>SI SI SI 
+42>SI NO NO 
+43>NO SI NO 
+44>NO NO SI 
+45>OK
+46>OK
+47>OK
+48>OK
+49># dos conjuntos iguales con mas elementos que antes
+50>SI SI SI SI SI SI SI SI SI SI SI SI SI 
+51>SI SI SI SI SI SI SI SI SI SI SI SI SI 
+52>SI SI SI SI SI SI SI SI SI SI SI SI SI 
+53>SI SI SI SI SI SI SI SI SI SI SI SI SI 
+54>NO NO NO NO NO NO NO NO NO NO NO NO NO 
+55>NO NO NO NO NO NO NO NO NO NO NO NO NO 
+56>OK
+57>OK
+58>OK
+59># interseccion vacia de dos conjuntos de varios elementos
+60>NO NO NO NO NO NO NO NO NO NO NO NO NO 
+61>NO NO NO NO NO 
+62>Fin

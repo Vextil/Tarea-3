@@ -1,0 +1,6 @@
+1># stress ColaBinario
+2># Prueba de orden de tiempo
+3>Fin Encolar. 
+4># Prueba de uso de memoria
+5>Fin Destruir ColaBinario. Fin DesencolarBinario. 
+6>Fin

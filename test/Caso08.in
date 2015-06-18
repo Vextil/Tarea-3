@@ -1,0 +1,254 @@
+ListarSolicitudes
+Reinicio
+ListarSolicitudes
+ListarSolicitudes
+CancelarSolicitud
+Reinicio
+IngresarSolicitudes chrome 95 FIN
+IngresarSolicitudes firefox 90 FIN
+IngresarSolicitudes chrome 90 FIN
+CancelarSolicitud
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes chrome 1 FIN
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes chrome 2 FIN
+Reinicio
+IngresarSolicitudes chrome 4 FIN
+EnAlgunoSolicitudes 4 4 1
+CrearLista 1 chrome firefox FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 4 5 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 5 4 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 7 22 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 4 4 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 3 4 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 4 3 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 98 17 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 4 4 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 99 4 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 4 100 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 12 100 1
+PerteneceASet 1 1
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes chrome 47 chrome 74 FIN
+EnAlgunoSolicitudes 47 74 1
+CrearLista 1 ie chrome FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 74 47 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 74 8 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 8 74 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 14 14 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 47 74 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 47 24 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 24 47 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 98 17 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 47 74 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 47 88 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 88 47 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 27 10 1
+PerteneceASet 1 1
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes chrome 43 slack 3 FIN
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes chrome 75 slack 44 FIN
+Reinicio
+IngresarSolicitudes chrome 28 slack 49 FIN
+EnAlgunoSolicitudes 28 49 1
+CrearLista 1 chrome slack dropbox FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 49 15 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 15 49 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 7 22 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 28 49 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 28 28 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 49 28 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 98 17 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 28 49 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 49 28 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 28 28 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 49 49 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 28 9 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 9 28 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 49 70 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 70 49 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 5 4 1
+PerteneceASet 1 1
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes sublime 30 slack 30 FIN
+EnAlgunoSolicitudes 30 30 1
+CrearLista 1 thunderbird slack sublime FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 67 30 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 30 67 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 5 22 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 30 30 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 7 30 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 30 7 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 98 17 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 30 30 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 4 30 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 30 4 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 28 2 1
+PerteneceASet 1 1
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes root 1 ps 100 root 100 ps 1 FIN
+EnAlgunoSolicitudes 30 30 1
+CrearLista 1 gcc grep root sshd httpd ps FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 100 1 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 1 100 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 2 1 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 2 3 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 100 1 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 1 100 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 100 7 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 98 17 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 100 1 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 1 100 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 30 100 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 1 2 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 81 38 1
+PerteneceASet 1 1
+ListarSolicitudes
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes wc 22 ls 100 diff 46 cmp 45 pwd 22 pwd 88 git 23 ls 1 cmp 23 cmp 1 pwd 100 FIN
+EnAlgunoSolicitudes 22 23 1
+CrearLista 1 ls svn gcc grep git wc diff cmp pwd httpd wc FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 22 22 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 23 22 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 45 46 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 100 22 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 98 99 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 22 88 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 88 22 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 100 88 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 88 100 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 22 100 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 1 23 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 46 22 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 12 47 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 22 1 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 81 38 1
+PerteneceASet 1 1
+ListarSolicitudes
+ListarSolicitudes
+Reinicio
+IngresarSolicitudes wc 22 ls 100 diff 46 cmp 45 pwd 22 pwd 88 git 23 ls 1 cmp 23 cmp 1 pwd 100 who 22 time 100 top 83 killall 82 kill 82 cal 23 writer 1 writer 4 writer 2 mysqld 22 python 45 ssh 88 tar 67 gzip 43 top 32 gcc 96 mysqldump 84 scp 22 time 27 who 3 FIN
+EnAlgunoSolicitudes 22 23 1
+CrearLista 1 ls svn scp time root gcc killall top writer mysql mysqld kill grep who scp ssh git wc mysqldump diff python cmp pwd httpd svn wc cal FIN
+PerteneceASet 1 1
+EnAlgunoSolicitudes 22 22 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 100 22 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 45 43 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 1 2 1
+PerteneceASet 1 1
+EnAlgunoSolicitudes 37 94 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 66 77 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 1 4 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 32 83 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 88 83 1
+PerteneceASet 1 1
+EnAmbosSolicitudes 22 27 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 22 27 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 1 4 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 82 82 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 45 22 1
+PerteneceASet 1 1
+SoloEnUnoSolicitudes 23 45 1
+PerteneceASet 1 1
+ListarSolicitudes
+ListarSolicitudes
+Reinicio
+Fin

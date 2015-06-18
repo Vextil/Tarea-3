@@ -38,18 +38,18 @@ PROCEDURE DestruirColaBinario (VAR c: ColaBinario);
 (******************)
 (*** PREDICADOS ***)
 (******************)
-   
+
 PROCEDURE EsVaciaColaBinario (c: ColaBinario): BOOLEAN;
 (* Devuelve TRUE si la cola 'c' es vacia o FALSE en caso contrario. *)
 
 (******************)
 (*** SELECTORES ***)
 (******************)
-   
+
 PROCEDURE PrimeroColaBinario (c: ColaBinario): Binario;
-(* Precondicion: NOT EsVaciaColaBinario(c)
+(* Precondicion: NOT EsVaciaColaBinario (c)
    Devuelve el arbol ubicado en el primer lugar de la cola.
-   No remueve de la cola el arbol devuelto. *) 
+   No remueve de la cola el arbol devuelto. *)
 
 
 

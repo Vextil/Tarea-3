@@ -1,0 +1,29 @@
+# Reinicio
+CrearLista 1 cinco cuatro seis uno segunda mitad de la lista FIN
+CrearLista 2 ahora beber con feliz jugo loco otro que rie sin tomar whisky FIN
+CrearBinario martes 5 1 dia 4 gran 4 altura 2 tambien 9 zoo 12 water 43 ya 12 FIN
+CrearBinario ahora 0 2 beber 1 con 2 feliz 3 jugo 4 loco 5 otro 6 que 7 rie 8 sin 9 tomar 10 whisky 11 FIN
+Apilar uno 9
+Apilar dos 3
+Apilar tres 8
+Encolar 1
+Encolar 2
+ConstruirSet 1 1 
+ConstruirSet 2 2 
+InsertarCP cuarenta 40 cuarentaycinco 40 cuarentaytres 40 cuarenta 40 FIN
+InsertarCP treintaicinco 35 veiticinco 25  treintaiocho 38 quince 15  FIN
+Reinicio
+CrearLista 1 cinco cuatro seis uno segunda mitad de la lista FIN
+CrearLista 2 ahora beber con feliz jugo loco otro que rie sin tomar whisky FIN
+CrearBinario martes 5 1 dia 4 gran 4 altura 2 tambien 9 zoo 12 water 43 ya 12 FIN
+CrearBinario ahora 0 2 beber 1 con 2 feliz 3 jugo 4 loco 5 otro 6 que 7 rie 8 sin 9 tomar 10 whisky 11 FIN
+Apilar uno 9
+Apilar dos 3
+Apilar tres 8
+Encolar 1
+Encolar 2
+ConstruirSet 1 1 
+ConstruirSet 2 2 
+InsertarCP cuarenta 40 cuarentaycinco 40 cuarentaytres 40 cuarenta 40 FIN
+InsertarCP treintaicinco 35 veiticinco 25  treintaiocho 38 quince 15  FIN
+Fin

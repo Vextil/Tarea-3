@@ -1,0 +1,30 @@
+Reinicio
+CorrerProcesos notepad 100 vim 200 gedit 300 postgressql 400 oraclesql 500 postgis 600 eclipse 700 netbeans 800 javaVM 900 tomcat 10 jetty 20 ionic 30 geoserver 40 qgis 50 gvsig 60 firefox 70 chrome 80 gimp 90 FIN 
+PedirRecursos notepad 1 vim 1 gedit 3 postgressql 4 oraclesql 4 postgis 4 javaVM 2 FIN
+SolicitanOMuyConsumidores 1000 1
+SolicitanOMuyConsumidores 500 1
+SolicitanOMuyConsumidores 1000 4
+SolicitanOMuyConsumidores 1 1
+SolicitanOMuyConsumidores 301 1
+SolicitanOMuyConsumidores 301 22
+SolicitanOMuyConsumidores 1000 100
+SolicitanOMuyConsumidores 1000 2
+Reinicio
+CorrerProcesos notepad 100 tomcat 10 jetty 20 ionic 30 geoserver 40 qgis 50 gvsig 60 firefox 70 chrome 80 gimp 90 FIN 
+PedirRecursos notepad 1 tomcat 1 jetty 3 ionic 4 oraclesql 4 gx9 4 geoserver 4 qgis 2 firefox 80 chrome 99 FIN
+SolicitanOMuyConsumidores 99 1
+SolicitanOMuyConsumidores 50 1
+SolicitanOMuyConsumidores 101 4
+SolicitanOMuyConsumidores 1 1
+SolicitanOMuyConsumidores 301 1
+SolicitanOMuyConsumidores 301 22
+Reinicio
+CorrerProcesos notepad 100 tomcat 10 jetty 20 ionic 30 geoserver 40 FIN 
+PedirRecursos notepad 1 tomcat 1 jetty 3 ionic 4 jetty 4 geoserver 4 notepad 2 notepad 80 notepad 1 tomcat 1 geoserver 3 FIN
+SolicitanOMuyConsumidores 99 1
+SolicitanOMuyConsumidores 101 4
+SolicitanOMuyConsumidores 1 1
+SolicitanOMuyConsumidores 301 1
+SolicitanOMuyConsumidores 301 3
+SolicitanOMuyConsumidores 301 22
+Fin

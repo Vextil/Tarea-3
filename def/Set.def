@@ -13,7 +13,7 @@ FROM Utils IMPORT TString;
 FROM ListaString IMPORT ListaString;
 
 TYPE
-   Set; 
+   Set;
 
 (*********************)
 (*** CONSTRUCTORES ***)
@@ -26,17 +26,17 @@ PROCEDURE ConstruirSet (l: ListaString): Set;
 (* Devuelve un conjunto con los mismos elementos que estan en 'l'. *)
 
 PROCEDURE CopiaSet (S: Set): Set;
-(* Devuelve un conjunto con loe mismos elementos que 'S. 
+(* Devuelve un conjunto con loe mismos elementos que 'S.
    El conjunto resultado no comparte memoria con 'S'. *)
 
 PROCEDURE InsertarEnSet (str: TString; VAR set: Set);
 (* Inserta 'str' en 'set'. Si ya estaba, no hace nada. *)
 
 PROCEDURE Union (A, B: Set): Set;
-(* Devuelve un conjunto con los elementos que estan en 'A' o en 'B'. 
+(* Devuelve un conjunto con los elementos que estan en 'A' o en 'B'.
    El conjunto devuelto no comparte memoria ni con A ni con B.
-   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
-   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB
+   la cantidad de elementos de A y B respectivamente y n la del conjunto
    resultado.
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
@@ -44,8 +44,8 @@ PROCEDURE Union (A, B: Set): Set;
 PROCEDURE Interseccion (A, B: Set): Set;
 (* Devuelve un conjunto con los elementos que estan en 'A' y en 'B'.
    El conjunto devuelto no comparte memoria ni con A ni con B.
-   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
-   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB
+   la cantidad de elementos de A y B respectivamente y n la del conjunto
    resultado.
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
@@ -53,8 +53,8 @@ PROCEDURE Interseccion (A, B: Set): Set;
 PROCEDURE Diferencia (A, B: Set): Set;
 (* Devuelve un conjunto con los elementos que estan en 'A' y no en 'B'.
    El conjunto devuelto no comparte memoria ni con A ni con B.
-   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB 
-   la cantidad de elementos de A y B respectivamente y n la del conjunto 
+   El tiempo de ejecucion es O(nA + nB + n.log n) en peor caso, siendo nA y nB
+   la cantidad de elementos de A y B respectivamente y n la del conjunto
    resultado.
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
@@ -69,7 +69,7 @@ PROCEDURE RemoverDeSet (str: TString; VAR set: Set);
 PROCEDURE DestruirSet (VAR set: Set);
 (* Libera la memoria reservada por 'set'. *)
 
-   
+
 (******************)
 (*** PREDICADOS ***)
 (******************)

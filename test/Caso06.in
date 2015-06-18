@@ -1,0 +1,65 @@
+# ColaPrioridad
+InsertarCP FIN
+ElementosCP 5 1
+ExtraerCP
+InsertarCP cuarenta 40 cuarentaycinco 40 cuarentaytres 40 cuarenta 40 FIN
+ElementosCP 5 1
+ElementosCP 40 1
+ImprimirLista 1
+ExtraerCP
+ElementosCP 40 1
+ElementosCP 40 1
+ImprimirLista 1
+InsertarCP veinte 20 FIN
+ElementosCP 5 1
+ElementosCP 20 1
+ElementosCP 40 2
+ImprimirLista 1
+ImprimirLista 2
+InsertarCP veintiuno 20 FIN
+ExtraerCP
+ImprimirLista 1
+ElementosCP 20 1
+ImprimirLista 1
+InsertarCP diez 10 FIN
+ExtraerCP
+InsertarCP treintaidos 30 treinta 30 FIN
+ExtraerCP
+ExtraerCP
+InsertarCP treintaicinco 35 veiticinco 25  treintaiocho 38 quince 15  FIN
+ExtraerCP
+InsertarCP treintaicinco2 35 treintaiuno 31 noventainueve 99 doce 12 FIN
+ElementosCP 20 1
+ElementosCP 12 2
+ElementosCP 40 1
+ImprimirLista 2
+ImprimirLista 1
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ElementosCP 12 1
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ElementosCP 40 1
+ImprimirLista 1
+ExtraerCP
+ExtraerCP
+ExtraerCP
+Fin
+InsertarCP txt 40 sed 20 fgy 5 lop 95 vfg 25 fhg 40 gjg 40 dgg 5 hkhjk 95 FIN
+ElementosCP 5 1
+ImprimirLista 1
+ExtraerCP
+ElementosCP 50 2
+ElementosCP 95 3
+ImprimirLista 3
+Fin
+
+       12
+    25      31 
+  30 38   35  99
+40

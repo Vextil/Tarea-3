@@ -1,0 +1,31 @@
+1>Hay 2 procesos.
+2>
+(12,chrome) 
+(100,boot) 
+3>La memoria que se libera es 12.
+4>
+(100,boot) 
+5>Reiniciando
+6>Hay 5 procesos.
+7>
+(33,gnome) (99,thunderbird) 
+(423,kdenlive) 
+(93,gedit) 
+(100,boot) 
+8>Hay 5 procesos.
+9>
+(33,gnome) (99,thunderbird) 
+(423,kdenlive) 
+(93,gedit) 
+(100,boot) 
+10>No existe el proceso.
+11>
+(33,gnome) (99,thunderbird) 
+(423,kdenlive) 
+(93,gedit) 
+(100,boot) 
+12>boot gedit gnome kdenlive thunderbird 
+13>boot gedit gnome kdenlive thunderbird 
+14>boot kdenlive thunderbird 
+15>
+16>Fin
