@@ -12,37 +12,78 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
+FROM Storage IMPORT ALLOCATE, DEALLOCATE;
+FROM STextIO IMPORT WriteString, WriteLn;
 FROM ListaString IMPORT ListaString;
-FROM Utils       IMPORT TString;
+FROM Utils       IMPORT TInfo, TString, CrearInfo, NumeroInfo, TCritFiltro, InfoAString;
+FROM Binario IMPORT Binario, CrearHoja, InsertarEnBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, TieneHijoDerecho, EsHoja, AlturaBinario;
 
 TYPE
-   Procesos;
+   Procesos = Binario;
 
 PROCEDURE CrearProcesos (texto: TString; num: CARDINAL): Procesos;
 (* Devuelve una coleccion de procesos conteniendo unicamente un Proceso con dato
    de texto 'texto' y dato numerico 'num'. *)
+VAR p : Procesos;
+BEGIN
+   
+   p := CrearHoja(CrearInfo(num, texto));
+
+END CrearProcesos;
 
 PROCEDURE AgregarProceso (texto: TString; num: CARDINAL; VAR p: Procesos);
 (* Si en 'p' ya hay un elemento con dato de texto 'texto', no hace nada.
    De lo contrario, agrega en 'p' un Proceso con dato de texto 'texto' y dato
    numerico 'num'. *)
+BEGIN
+   
+   InsertarEnBinario(CrearInfo(num, texto), p);
+
+END AgregarProceso;
 
 PROCEDURE EliminarProceso (texto: TString; VAR p: Procesos);
 (* Si en 'p' no hay un elemento con dato de texto 'texto', no hace nada.
    Si en 'p' hay un solo elemento y su dato de texto es 'texto', destruye 'p'.
    De lo contrario, elimina de 'p' el elemento cuyo dato de texto es 'texto' y
    libera la memoria asignada al mismo. *)
+BEGIN
+   
+   RemoverDeBinario(texto, p);
+
+END EliminarProceso;
 
 PROCEDURE CantidadProcesos (p: Procesos): CARDINAL;
 (* Devuelve la cantidad de elementos de 'p'. *)
+BEGIN
+   
+   RETURN CantidadBinario(p);
+
+END CantidadProcesos;
 
 PROCEDURE IncluyeProceso (texto: TString; p: Procesos): BOOLEAN;
 (* Devuelve TRUE si en 'p' hay un elemento con dato de texto 'texto' o
    FALSE en caso contrario. *)
+VAR busqueda : BoolBinario;
+BEGIN
+   
+   busqueda := BuscarABB(texto, p);
+   RETURN busqueda.hayBinario;
+
+END IncluyeProceso;
 
 PROCEDURE ValorProceso (texto: TString; p: Procesos): CARDINAL;
 (*  Precondicion: IncluyeProceso (texto, p).
     Devuelve el dato numerico del elemento de 'p' con dato de texto 'texto'. *)
+VAR 
+   busqueda : BoolBinario;
+   info : TInfo;
+BEGIN
+   
+   busqueda := BuscarABB(texto, p);
+   info := RaizBinario(busqueda);
+   RETURN NumeroInfo(info);
+
+END ValorProceso;
 
 PROCEDURE ImprimirProcesos (p: Procesos);
 (* Imprime el arbol de procesos, un nivel por linea, de abajo hacia arriba y
@@ -50,16 +91,65 @@ PROCEDURE ImprimirProcesos (p: Procesos);
    Cada elemento se imprime con el formato (numero,texto) seguido de un espacio
    en blanco. *)
 
+   PROCEDURE ImprimirNivel(nActual, nImprimir : CARDINAL; a: Binario);
+   BEGIN
+      IF nActual = nImprimir THEN
+         WriteString(InfoAString(RaizBinario(a)));
+         WriteString(" ");
+      ELSE
+         IF TieneHijoIzquierdo(a) THEN
+            ImprimirNivel(nActual + 1, nImprimir, Izquierdo(a));
+         END;
+         IF TieneHijoDerecho(a) THEN
+            ImprimirNivel(nActual + 1, nImprimir, Derecho(a));
+         END;
+      END;
+   END;
+
+VAR altura : AlturaBinario;
+BEGIN
+   
+   altura := AlturaBinario(p);
+   FOR i := 1 TO altura DO
+      ImprimirNivel(i, (altura + 1) - i, p);
+      IF NOT i = altura THEN
+         WriteLn();
+      END;
+   END;
+
+END;
+
+
 PROCEDURE ListarProcesos (p: Procesos): ListaString;
 (* Devuelve una lista en orden lexicografico creciente de los identificadores de
    proceso de 'p'. *) 
+BEGIN
+   
+   RETURN Linealizacion(p);
+
+END ListarProcesos;
 
 PROCEDURE MuyConsumidores (mem: CARDINAL; p: Procesos): ListaString;
+VAR filtrado : BoolBinario;
 (* Devuelve una lista en orden lexicografico creciente de los identificadores de
-   proceso de 'p' que la memoria que consumen es mayor a 'mem'. *)   
+   proceso de 'p' que la memoria que consumen es mayor a 'mem'. *) 
+BEGIN
+
+   filtrado := Filtrar(mem, FltMenor, p);
+   IF filtrado.hayBinario THEN
+      RETURN Linealizacion(filtrado.arbol);
+   END;     
+
+END MuyConsumidores;  
    
 PROCEDURE DestruirProcesos (VAR p: Procesos);
 (* Libera la memoria asociada a 'p' y a todos sus elementos. *)
+BEGIN
+   
+   DestruirBinario(p);
+   DISPOSE(p);
+
+END DestruirProcesos;
 
 
 END Procesos.
