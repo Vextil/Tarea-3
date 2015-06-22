@@ -10,9 +10,10 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
-FROM Utils IMPORT TString, GENERICA;
-FROM ListaString IMPORT ListaString, InsertarEnLista, CrearLista, DestruirLista;
-FROM Set IMPORT Set, ConstruirSet, DestruirSet, Union, Interseccion, Diferencia;
+FROM Storage       IMPORT ALLOCATE, DEALLOCATE;
+FROM Utils         IMPORT TString, GENERICA;
+FROM ListaString   IMPORT ListaString, InsertarEnLista, CrearLista, DestruirLista;
+FROM Set           IMPORT Set, ConstruirSet, DestruirSet, Union, Interseccion, Diferencia;
 FROM ColaPrioridad IMPORT CrearColaPrioridad, ExtraerDeMinimoColaPrioridad, PrioridadMinimoColaPrioridad, DestruirColaPrioridad, ElementosColaPrioridad, InsertarEnColaPrioridad;
 
 CONST MAX_RECURSOS = GENERICA;
