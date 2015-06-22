@@ -14,7 +14,7 @@ FROM Storage IMPORT ALLOCATE, DEALLOCATE;
 FROM STextIO IMPORT WriteString, WriteLn;
 FROM Strings IMPORT CompareResults, Compare, Append;
 
-FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString;
+FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString, TCritFiltro;
 FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, DestruirLista;
 
 TYPE Binario = POINTER TO Nodo;
@@ -206,7 +206,7 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
    definida.
    Libera la memoria del nodo y del elemento. *)
 
-   	PROCEDURE RemoverNodo (VAR a: Binario; esDerecho: BOOLEAN);
+   PROCEDURE RemoverNodo (VAR a: Binario; esDerecho: BOOLEAN);
 	VAR aNuevo, aMenor: Binario;
 	BEGIN
 		aNuevo := NIL;
@@ -266,6 +266,10 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
 BEGIN
 
    IF NOT EsHoja(a) THEN
+      CASE Compare(txt, TextoInfo(a^.elemento)) OF
+         equal: DestruirBinario(a);
+      END;
+   ELSE
       Iterar(txt, a, FALSE);
    END;
 
@@ -275,14 +279,16 @@ PROCEDURE DestruirBinario (VAR a: Binario);
 (* Libera la memoria asignada a 'a' y todos sus elementos. *)
 BEGIN
 
-   IF TieneHijoIzquierdo(a) THEN
-      DestruirBinario(a^.izquierdo);
+   IF a # NIL THEN
+      IF TieneHijoIzquierdo(a) THEN
+         DestruirBinario(a^.izquierdo);
+      END;
+      IF TieneHijoDerecho(a) THEN
+         DestruirBinario(a^.derecho);
+      END;
+      DestruirInfo(a^.elemento);
+      DISPOSE(a);
    END;
-   IF TieneHijoDerecho(a) THEN
-      DestruirBinario(a^.derecho);
-   END;
-   DestruirInfo(a^.elemento);
-   DISPOSE(a);
    
 END DestruirBinario;
 
