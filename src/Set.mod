@@ -9,10 +9,11 @@ Laboratorio de Programacion 2.
 InCo-FIng-UDELAR
 *******************************************************************************)
 
-FROM Utils IMPORT TString, CrearInfo;
-FROM Strings IMPORT CompareResults, Compare;
+FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
+FROM Utils       IMPORT TString, CrearInfo;
+FROM Strings     IMPORT CompareResults, Compare;
 FROM ListaString IMPORT ListaString, IrInicioLista, EsPosicionValida, IrSiguienteLista, ActualLista, InsertarEnLista, EsVaciaLista, RemoverDeLista;
-FROM Binario IMPORT Binario, Balanceado, CantidadBinario, DestruirBinario, CopiaBinario, InsertarBinario, CrearHoja, Linealizacion, BuscarABB, RemoverDeBinario;
+FROM Binario     IMPORT Binario, Balanceado, CantidadBinario, DestruirBinario, CopiaBinario, InsertarBinario, CrearHoja, Linealizacion, BuscarABB, RemoverDeBinario;
 
 TYPE	
 	Set = POINTER TO TipoSet;
@@ -43,8 +44,14 @@ VAR	set : Set;
 BEGIN
    
 	set := CrearSet();
-	set^.arbol := Balanceado(l);
-	set^.cantidad := CantidadBinario(set^.arbol);
+	IrInicioLista(l);
+	set^.arbol := CrearHoja(CrearInfo(0, ActualLista(l)));
+	RemoverDeLista(l);
+	WHILE NOT EsVaciaLista(l) DO
+		InsertarBinario(CrearInfo(0, ActualLista(l)), set^.arbol);
+		RemoverDeLista(l);
+		INC(set^.cantidad);
+	END;
 	RETURN set;
 
 END ConstruirSet;
@@ -145,8 +152,58 @@ PROCEDURE Interseccion (A, B: Set): Set;
    resultado.
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
+
+	PROCEDURE Insertar(a, b: ListaString; VAR cantidad: CARDINAL);
+	(* Inserta elemento actual de 'A' en 'B' y lo elimina de 'A' *)
+	BEGIN
+
+		InsertarEnLista(ActualLista(a), b);
+		RemoverDeLista(a);
+		INC(cantidad);
+
+	END;
+
+	PROCEDURE UnirListasSinRepeticiones(a, b: ListaString; VAR cantidad: CARDINAL): ListaString;
+	(* Une dos listas dejando solo los elementos que estan en 'A' y en 'B' *)
+	VAR 
+		comparacion : CompareResults;
+		c : ListaString;
+	BEGIN
+
+		c := CrearLista();
+		cantidad := 0;
+		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
+			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
+	   			comparacion := Compare(ActualLista(a), ActualLista(b));
+	   			IF comparacion = less THEN
+	   				RemoverDeLista(a);
+	   			ELSIF comparacion = greater THEN
+	   				RemoverDeLista(b);
+	   			ELSIF comparacion = equal THEN
+	   				Insertar(a, c, cantidad);
+	   			END;
+	   		ELSIF EsPosicionValida(a) THEN
+	   			Insertar(a, c, cantidad);
+	   		ELSIF EsPosicionValida(b) THEN
+	   			Insertar(b, c, cantidad);
+	   		END;
+		END;
+		RETURN c;
+	END;
+
+VAR	
+	nuevo : Set;
+	nuevaLista : ListaString;
+	cantidad : CARDINAL;
 BEGIN
-   
+
+	listaA := Linealizacion(A^.arbol);
+	listaB := Linealizacion(B^.arbol);
+	nuevaLista := UnirListasSinRepeticiones(listaA, listaB, cantidad);
+	nuevo := CrearSet();
+	nuevo^.arbol := Balanceado(nuevaLista);
+	nuevo^.cantidad := cantidad;
+
 END Interseccion;
 
 PROCEDURE Diferencia (A, B: Set): Set;
@@ -157,8 +214,59 @@ PROCEDURE Diferencia (A, B: Set): Set;
    resultado.
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
+
+	PROCEDURE Insertar(a, b: ListaString; VAR cantidad: CARDINAL);
+	(* Inserta elemento actual de 'A' en 'B' y lo elimina de 'A' *)
+	BEGIN
+
+		InsertarEnLista(ActualLista(a), b);
+		RemoverDeLista(a);
+		INC(cantidad);
+
+	END;
+
+	PROCEDURE UnirListasSinRepeticiones(a, b: ListaString; VAR cantidad: CARDINAL): ListaString;
+	(* Une dos listas dejando solo los elementos que estan en 'A' y no en 'B' *)
+	VAR 
+		comparacion : CompareResults;
+		c : ListaString;
+	BEGIN
+
+		c := CrearLista();
+		cantidad := 0;
+		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
+			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
+	   			comparacion := Compare(ActualLista(a), ActualLista(b));
+	   			IF comparacion = less THEN
+	   				Insertar(a, c, cantidad);
+	   			ELSIF comparacion = greater THEN
+	   				RemoverDeLista(b);
+	   			ELSIF comparacion = equal THEN
+	   				RemoverDeLista(a);
+	   				RemoverDeLista(b);
+	   			END;
+	   		ELSIF EsPosicionValida(a) THEN
+	   			Insertar(a, c, cantidad);
+	   		ELSIF EsPosicionValida(b) THEN
+	   			Insertar(b, c, cantidad);
+	   		END;
+		END;
+		RETURN c;
+	END;
+
+VAR	
+	nuevo : Set;
+	nuevaLista : ListaString;
+	cantidad : CARDINAL;
 BEGIN
-   
+
+	listaA := Linealizacion(A^.arbol);
+	listaB := Linealizacion(B^.arbol);
+	nuevaLista := UnirListasSinRepeticiones(listaA, listaB, cantidad);
+	nuevo := CrearSet();
+	nuevo^.arbol := Balanceado(nuevaLista);
+	nuevo^.cantidad := cantidad;
+
 END Diferencia;
 
 (********************)
