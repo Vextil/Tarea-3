@@ -12,11 +12,11 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
-FROM Storage IMPORT ALLOCATE, DEALLOCATE;
-FROM STextIO IMPORT WriteString, WriteLn;
-FROM ListaString IMPORT ListaString;
+FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
+FROM STextIO     IMPORT WriteString, WriteLn;
+FROM ListaString IMPORT ListaString, IrInicioLista;
 FROM Utils       IMPORT TInfo, TString, CrearInfo, NumeroInfo, TCritFiltro, InfoAString;
-FROM Binario IMPORT Binario, CrearHoja, InsertarEnBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, TieneHijoDerecho, EsHoja, AlturaBinario;
+FROM Binario     IMPORT Binario, CrearHoja, InsertarEnBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, TieneHijoDerecho, EsHoja, AlturaBinario;
 
 TYPE
    Procesos = Binario;
@@ -123,9 +123,12 @@ END;
 PROCEDURE ListarProcesos (p: Procesos): ListaString;
 (* Devuelve una lista en orden lexicografico creciente de los identificadores de
    proceso de 'p'. *) 
+VAR l : ListaString;
 BEGIN
    
-   RETURN Linealizacion(p);
+   l := Linealizacion(p);
+   IrInicioLista(l);
+   RETURN l;
 
 END ListarProcesos;
 
@@ -133,11 +136,14 @@ PROCEDURE MuyConsumidores (mem: CARDINAL; p: Procesos): ListaString;
 VAR filtrado : BoolBinario;
 (* Devuelve una lista en orden lexicografico creciente de los identificadores de
    proceso de 'p' que la memoria que consumen es mayor a 'mem'. *) 
+VAR l : ListaString;
 BEGIN
 
    filtrado := Filtrar(mem, FltMenor, p);
    IF filtrado.hayBinario THEN
-      RETURN Linealizacion(filtrado.arbol);
+      l := Linealizacion(filtrado.arbol);
+      IrInicioLista(l);
+      RETURN l;
    END;     
 
 END MuyConsumidores;  
