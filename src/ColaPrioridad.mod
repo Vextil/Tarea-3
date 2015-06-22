@@ -6,7 +6,6 @@ Modulo de implementacion de ColaPrioridad.
 Es una cola de prioridad, no acotada, de elementos de tipo TString.
 Las prioridades son numeros enteros en el rango [1 .. K].
 
-
 Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
@@ -38,7 +37,7 @@ BEGIN
    
 END CrearColaPrioridad;
 
-PROCEDURE InsertarEnColaPrioridad (txt: TString; prio: RangoPrioridad; 
+PROCEDURE InsertarEnColaPrioridad (txt: TString; prio: RangoPrioridad; VAR c: ColaPrioridad);
 (* Inserta el texto 'txt' en la cola 'c' con prioridad 'prio'.
    Si NOT PerteneceAColaPrioridad (prio, c), el tiempo de ejecucion es O(log K).
    En otro caso el tiempo de ejecucion es O(K). *)
@@ -127,8 +126,8 @@ PROCEDURE EsVaciaColaPrioridad (c: ColaPrioridad): BOOLEAN;
 (* Devuelve TRUE si la cola de prioridad 'c' es vacia o FALSE en caso contrario.
    El tiempo de ejecucion es O(1). *)
 BEGIN
-   
-		RETURN c^.cantidad = 0;
+
+		RETURN (c = NIL) OR (c^.cantidad = 0);
 
 END EsVaciaColaPrioridad;
 
