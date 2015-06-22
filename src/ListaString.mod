@@ -186,6 +186,8 @@ BEGIN
 
 	IF NOT EsVaciaLista(l) THEN
 		DestruirPosiciones(l^.inicio);
+	END;
+	IF l # NIL THEN
 		DISPOSE(l);
 	END;
 
@@ -201,7 +203,7 @@ PROCEDURE EsVaciaLista (l: ListaString): BOOLEAN;
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	RETURN l^.cantidad = 0;
+	RETURN (l = NIL) OR (l^.cantidad = 0);
    
 END EsVaciaLista;
 
@@ -250,7 +252,9 @@ PROCEDURE IrInicioLista (VAR l: ListaString);
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	l^.actual := l^.inicio;
+	IF NOT EsVaciaLista(l) THEN
+		l^.actual := l^.inicio;
+	END;
    
 END IrInicioLista;
 
