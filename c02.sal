@@ -1,0 +1,152 @@
+1># Binario
+2># hoja
+3>OK
+4>Altura: 1; Cantidad: 1
+5>No tiene hijo izquierdo.
+6>No tiene hijo derecho.
+7>OK
+8>
+ (5,solo)
+9>Ordenada. solo 
+10>No se encontro el texto.
+11>OK
+12>El filtro devolvio un arbol sin elementos.
+13>
+ (5,solo)
+14># raiz e hijo izquierdo
+15>OK
+16>Altura: 2; Cantidad: 2
+17>OK
+18>No tiene hijo derecho.
+19>
+ (1,izquierdo)
+20>OK
+21>
+ (5,tiene)
+  (1,izquierdo)
+22>Ordenada. izquierdo tiene 
+23>No se encontro el texto.
+24>OK
+25>OK
+26>
+ (5,tiene)
+27>
+ (1,izquierdo)
+28># raiz e hijo derecho
+29>OK
+30>Altura: 2; Cantidad: 2
+31>No tiene hijo izquierdo.
+32>OK
+33>
+ (1,derecho)
+34>OK
+35>
+  (1,derecho)
+ (5,con)
+36>Ordenada. con derecho 
+37>No se encontro el texto.
+38>OK
+39>OK
+40>
+ (5,con)
+41>
+ (1,derecho)
+42># Balanceado de 1 y 2 elementos
+43>OK
+44>OK
+45>Altura: 1; Cantidad: 1
+46>OK
+47>OK
+48>
+ (0,derecho)
+  (0,con)
+49># arbol hacia la derecha
+50>OK
+51>
+            (11,whisky)
+           (10,tomar)
+          (9,sin)
+         (8,rie)
+        (7,que)
+       (6,otro)
+      (5,loco)
+     (4,jugo)
+    (3,feliz)
+   (2,con)
+  (1,beber)
+ (0,ahora)
+52>OK
+53>Ordenada. ahora beber con feliz jugo loco otro que rie sin tomar whisky 
+54># arbol hacia la izquierda
+55>OK
+56>
+ (0,whisky)
+  (1,tomar)
+   (2,sin)
+    (3,rie)
+     (4,que)
+      (5,otro)
+       (6,loco)
+        (7,jugo)
+         (8,feliz)
+          (9,con)
+           (10,beber)
+            (11,ahora)
+57>OK
+58>Ordenada. ahora beber con feliz jugo loco otro que rie sin tomar whisky 
+59># balanceado de 12
+60>OK
+61>OK
+62>Altura: 4; Cantidad: 12
+63>
+   (0,whisky)
+    (0,tomar)
+  (0,sin)
+   (0,rie)
+    (0,que)
+ (0,otro)
+   (0,loco)
+    (0,jugo)
+  (0,feliz)
+    (0,con)
+   (0,beber)
+    (0,ahora)
+64># otros
+65>OK
+66>Altura: 5; Cantidad: 8
+67>OK
+68>No se encontro el texto.
+69>
+  (4,gran)
+ (4,dia)
+  (2,altura)
+70>OK
+71>OK
+72>OK
+73>OK
+74>OK
+75>
+  (12,zoo)
+    (12,ya)
+   (43,water)
+ (5,martes)
+   (4,gran)
+  (4,dia)
+   (2,altura)
+76>
+  (4,gran)
+ (4,dia)
+  (2,altura)
+77>
+  (12,zoo)
+    (12,ya)
+   (43,water)
+ (9,tambien)
+78>
+   (12,zoo)
+     (12,ya)
+    (43,water)
+  (9,tambien)
+ (5,martes)
+79>Ordenada. altura dia gran martes tambien water ya zoo 
+80>Fin

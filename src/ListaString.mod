@@ -10,11 +10,13 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
+FROM STextIO IMPORT WriteString;
 FROM Strings IMPORT CompareResults, Compare;
 FROM Utils IMPORT TString;
 
 TYPE
 	ListaString = POINTER TO TipoLista;
+	Posicion = POINTER TO Nodo; 
 	TipoLista = RECORD
 	              inicio, final, actual : Posicion;
 	              cantidad: CARDINAL;
@@ -23,8 +25,6 @@ TYPE
 	           elemento : TString;
 	           anterior, siguiente: Posicion;
 	       END;
-	Posicion = POINTER TO Nodo; 
-
 (*********************)
 (*** CONSTRUCTORES ***)
 (*********************)
@@ -33,14 +33,9 @@ PROCEDURE CrearLista (): ListaString;
 (* Devuelve la lista vacia (sin elementos) 
    La posicion actual no es valida.
    El tiempo de ejecucion es O(1). *)
-VAR lista : ListaString;
 BEGIN
    
-	NEW(lista);
-	lista^.cantidad := 0;
-	lista^.inicio := NIL;
-	lista^.final := NIL;
-	lista^.actual := NIL;
+	RETURN NIL;
 
 END CrearLista;
    
@@ -50,34 +45,23 @@ PROCEDURE CopiaLista (l: ListaString): ListaString;
    En la lista resultado la posicion actual no es valida.   
    El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
 VAR 
-	i : CARDINAL;
 	nueva : ListaString;
-	nodo : Posicion;
+	actualAux : Posicion;
 BEGIN
    
-	nueva := CrearLista();
-	nueva^.cantidad := l^.cantidad;
-	actual := l^.inicio;
-	WHILE actual # NIL DO
-		NEW(nodo);
-		IF EsVaciaLista(nueva) THEN
-			nueva^.inicio := nodo;
-			nueva^.actual := nodo;
-		ELSE
-			nueva^.actual^.siguiente := nodo;
-			nueva^.actual^.siguiente^.anterior := nueva^.actual;
+   	IF EsVaciaLista(l) THEN
+   		RETURN NIL;
+   	ELSE
+		NEW(nueva);
+		actualAux := l^.actual;
+		IrInicioLista(l);
+		WHILE EsPosicionValida(l) DO
+			InsertarEnLista(ActualLista(l), nueva);
+			IrSiguienteLista(l);
 		END;
-		nodo^.elemento := actual^.elemento;
-		actual := actual^.siguiente;
-		nueva^.actual := nueva^.actual^.siguiente;
-		IF actual = NIL THEN
-			nueva^.final := nodo;
-			nodo^.siguiente := NIL;
-		END;
-		nodo := NIL;
+		l^.actual := actualAux;
+		RETURN nueva;
 	END;
-	nueva^.actual := NIL;
-	RETURN nueva;
 
 END CopiaLista;
 
@@ -88,15 +72,21 @@ PROCEDURE InsertarEnLista (txt: TString; VAR l: ListaString);
 VAR nodo : Posicion;
 BEGIN
 
-	INC(l^.cantidad);
 	NEW(nodo);
 	nodo^.elemento := txt;
 	IF EsVaciaLista(l) THEN
-		l^.inicio := nodo;
-	ELSE
-		l^.final^.siguiente := nodo;
+		NEW(l);
 	END;
-	l^.final := nodo;
+	IF (l^.inicio = NIL) THEN
+		l^.cantidad := 1;
+		l^.inicio := nodo;
+		l^.final := nodo;
+	ELSE
+		INC(l^.cantidad);
+		nodo^.anterior := l^.final;
+		l^.final^.siguiente := nodo;
+		l^.final := nodo;
+	END;
 
 END InsertarEnLista;
 
@@ -109,26 +99,26 @@ PROCEDURE PartirLista (VAR l: ListaString): ListaString;
 VAR 
 	i, mitad : CARDINAL;
 	nueva : ListaString;
-	loop : Posicion;
 BEGIN
    
 	mitad := CantidadLista(l) DIV 2;
-	nueva := CrearLista();
-	loop := l^.inicio;
+	NEW(nueva);
+	IrInicioLista(l);
 	FOR i := 1 TO mitad DO
-		loop := loop^.siguiente;
-		IF i = mitad THEN
-			l^.final := loop^.anterior;
-			l^.final^.siguiente := NIL;
-			l^.actual := NIL;
-			nueva^.cantidad := l^.cantidad - mitad;
-			nueva^.inicio := loop;
-			nueva^.inicio^.anterior := NIL;
-			nueva^.final := l^.final;
-			nueva^.actual := NIL;
-			l^.cantidad := mitad;
-		END;
+		IrSiguienteLista(l);
 	END;
+
+	nueva^.cantidad := l^.cantidad - mitad;
+	nueva^.inicio := l^.actual;
+	nueva^.final := l^.final;
+
+	l^.cantidad := mitad;
+	l^.final := l^.actual^.anterior;
+	l^.final^.siguiente := NIL;
+	l^.actual := NIL;
+
+	nueva^.inicio^.anterior := NIL;
+
 	RETURN nueva;
 
 END PartirLista;
@@ -150,9 +140,7 @@ BEGIN
 		DEC(l^.cantidad);
 		actual := l^.actual;
 		IF (actual = l^.inicio) AND (actual = l^.final) THEN
-			l^.inicio := NIL;
-			l^.final := NIL;
-			l^.actual := NIL;
+			DestruirLista(l);
 		ELSIF actual = l^.inicio THEN
 			actual^.siguiente^.anterior := NIL;
 			l^.inicio := actual^.siguiente;
@@ -186,8 +174,6 @@ BEGIN
 
 	IF NOT EsVaciaLista(l) THEN
 		DestruirPosiciones(l^.inicio);
-	END;
-	IF l # NIL THEN
 		DISPOSE(l);
 	END;
 
@@ -203,8 +189,12 @@ PROCEDURE EsVaciaLista (l: ListaString): BOOLEAN;
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	RETURN (l = NIL) OR (l^.cantidad = 0);
-   
+	IF l = NIL THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END;
+
 END EsVaciaLista;
 
 PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;   
@@ -215,7 +205,11 @@ PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	RETURN l^.actual # NIL;
+	IF l^.actual = NIL THEN
+		RETURN FALSE;
+	ELSE
+		RETURN TRUE;
+	END;
    
 END EsPosicionValida;
    
@@ -238,7 +232,11 @@ PROCEDURE EstaOrdenadaLista (l: ListaString): BOOLEAN;
 
 BEGIN
 
-	RETURN SiguienteEsMayor(l^.inicio);
+	IF EsVaciaLista(l) THEN
+		RETURN TRUE;
+	ELSE
+		RETURN SiguienteEsMayor(l^.inicio);
+	END;
    
 END EstaOrdenadaLista;
 
@@ -266,13 +264,13 @@ PROCEDURE IrSiguienteLista (VAR l: ListaString);
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	IF l^.actual = l^.final THEN
-		l^.actual := NIL;
-	ELSE
+	IF l^.actual^.siguiente # NIL THEN
 		l^.actual := l^.actual^.siguiente;
+	ELSE
+		l^.actual := NIL;
 	END;
    
-END IrInicioLista;
+END IrSiguienteLista;
 
 (******************)
 (*** SELECTORES ***)
@@ -295,7 +293,11 @@ PROCEDURE CantidadLista (l: ListaString): CARDINAL;
    El tiempo de ejecucion es O(1). *)
 BEGIN
    
-	RETURN l^.cantidad;
+   	IF EsVaciaLista(l) THEN
+   		RETURN 0;
+   	ELSE
+		RETURN l^.cantidad;
+	END;
 
 END CantidadLista;
       
@@ -312,11 +314,10 @@ VAR listaLoop : Posicion;
 BEGIN
 
 	IF NOT EsVaciaLista(l) THEN
+		listaLoop := l^.inicio;
 		WHILE listaLoop # NIL DO
 			WriteString(listaLoop^.elemento);
-			IF listaLoop^.siguiente # NIL THEN
-				WriteString(" ");
-			END;
+			WriteString(" ");
 			listaLoop := listaLoop^.siguiente;
 		END;
 	END;

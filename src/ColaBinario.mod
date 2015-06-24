@@ -13,12 +13,13 @@ FROM Binario IMPORT Binario, DestruirBinario;
 
 TYPE
 	ColaBinario = POINTER TO TipoColaBinario;
-	TipoColaBinario = RECORD
-		inicio, final : NodoColaBinario;
-	END;
+	Posicion = POINTER TO NodoColaBinario;
 	NodoColaBinario = RECORD
 		elemento : Binario;
-		siguiente : NodoColaBinario;
+		siguiente : Posicion;
+	END;
+	TipoColaBinario = RECORD
+		inicio, final : Posicion;
 	END;
 
 (*********************)
@@ -39,7 +40,7 @@ END CrearColaBinario;
 
 PROCEDURE EncolarBinario (arbol: Binario; VAR c: ColaBinario);
 (* Encola el arbol binario de busqueda 'arbol' en la cola 'c'. *)
-VAR cNuevo : NodoColaBinario;
+VAR cNuevo : Posicion;
 BEGIN
 
 	NEW(cNuevo);
@@ -63,7 +64,7 @@ PROCEDURE DesencolarBinario (VAR c: ColaBinario);
 (* Si EsVaciaColaBinario (c) no hace nada.
    En otro caso, desencola el primer arbol de la cola 'c'.
    Se debe liberar la memoria del nodo sin destruir el arbol removido. *)
-VAR cAux : NodoColaBinario;
+VAR cAux : Posicion;
 BEGIN
 
 	IF NOT EsVaciaColaBinario(c) THEN
@@ -77,14 +78,14 @@ END DesencolarBinario;
 PROCEDURE DestruirColaBinario (VAR c: ColaBinario);
 (* Libera la memoria asignada a 'c' y a todos sus elementos. *)
 
-	PROCEDURE DestruirNodos(n: NodoColaBinario);
+	PROCEDURE DestruirNodos(n: Posicion);
 	BEGIN
 		IF n # NIL THEN
-			DestruirColaBinario(n^.siguiente);
+			DestruirNodos(n^.siguiente);
 			DestruirBinario(n^.elemento);
 			DISPOSE(n);
 		END;
-	END;
+	END DestruirNodos;
 
 BEGIN
 

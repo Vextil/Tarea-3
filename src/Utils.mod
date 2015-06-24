@@ -47,7 +47,9 @@ PROCEDURE DestruirInfo (VAR i: TInfo);
 (* Libera la memoria reservada por TInfo. *)
 BEGIN
 
-   DISPOSE(i);
+   IF i # NIL THEN
+      DISPOSE(i);
+   END;
 
 END DestruirInfo;
 

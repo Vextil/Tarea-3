@@ -12,11 +12,10 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
-FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
 FROM STextIO     IMPORT WriteString, WriteLn;
 FROM ListaString IMPORT ListaString, IrInicioLista;
 FROM Utils       IMPORT TInfo, TString, CrearInfo, NumeroInfo, TCritFiltro, InfoAString;
-FROM Binario     IMPORT Binario, CrearHoja, InsertarEnBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, TieneHijoDerecho, EsHoja, AlturaBinario;
+FROM Binario     IMPORT Binario, CrearHoja, InsertarEnBinario, DestruirBinario, RemoverDeBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, RaizBinario, TieneHijoDerecho, AlturaBinario;
 
 TYPE
    Procesos = Binario;
@@ -24,10 +23,9 @@ TYPE
 PROCEDURE CrearProcesos (texto: TString; num: CARDINAL): Procesos;
 (* Devuelve una coleccion de procesos conteniendo unicamente un Proceso con dato
    de texto 'texto' y dato numerico 'num'. *)
-VAR p : Procesos;
 BEGIN
    
-   p := CrearHoja(CrearInfo(num, texto));
+   RETURN CrearHoja(CrearInfo(num, texto));
 
 END CrearProcesos;
 
@@ -80,7 +78,7 @@ VAR
 BEGIN
    
    busqueda := BuscarABB(texto, p);
-   info := RaizBinario(busqueda);
+   info := RaizBinario(busqueda.arbol);
    RETURN NumeroInfo(info);
 
 END ValorProceso;
@@ -104,20 +102,20 @@ PROCEDURE ImprimirProcesos (p: Procesos);
             ImprimirNivel(nActual + 1, nImprimir, Derecho(a));
          END;
       END;
-   END;
+   END ImprimirNivel;
 
-VAR altura : AlturaBinario;
+VAR i, altura : CARDINAL;
 BEGIN
    
    altura := AlturaBinario(p);
    FOR i := 1 TO altura DO
       ImprimirNivel(i, (altura + 1) - i, p);
-      IF NOT i = altura THEN
+      IF NOT (i = altura) THEN
          WriteLn();
       END;
    END;
 
-END;
+END ImprimirProcesos;
 
 
 PROCEDURE ListarProcesos (p: Procesos): ListaString;
@@ -153,7 +151,6 @@ PROCEDURE DestruirProcesos (VAR p: Procesos);
 BEGIN
    
    DestruirBinario(p);
-   DISPOSE(p);
 
 END DestruirProcesos;
 

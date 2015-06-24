@@ -12,10 +12,10 @@ InCo-FI-UDELAR
 *******************************************************************************)
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
 FROM STextIO IMPORT WriteString, WriteLn;
-FROM Strings IMPORT CompareResults, Compare, Append;
+FROM Strings IMPORT CompareResults, Compare;
 
-FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString, TCritFiltro;
-FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, DestruirLista;
+FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString, TCritFiltro, NumeroInfo, TextoInfo, DestruirInfo;
+FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, DestruirLista, CantidadLista, ActualLista, RemoverDeLista, EsVaciaLista;
 
 TYPE Binario = POINTER TO Nodo;
      Nodo = RECORD
@@ -86,31 +86,30 @@ VAR
 	a: Binario;
 	l2: ListaString;
 BEGIN
-
-	a := CrearHoja();
-	IF CantidadLista(l) > 1 THEN
-		l2 := PartirLista(l);
+	IF CantidadLista(l) = 1 THEN
+		IrInicioLista(l);
+      a := CrearHoja(CrearInfo(0, ActualLista(l)));
+      RemoverDeLista(l);
 	ELSE
-		l2 := l;
-	END;
-	IrInicioLista(l2);
-	a^.elemento := CrearInfo(0, ActualLista(l2));
-	RemoverDeLista(l2);
-	IF NOT EsVaciaLista(l) THEN
-		a^.izquierdo := Balanceado(l);
-		a^.izquierdo^.padre := a;
-		DestruirLista(l);
-	END;
-	IF NOT EsVaciaLista(l2) THEN
-		a^.derecho := Balanceado(l2);
-		a^.derecho^.padre := a;
-		DestruirLista(l2);
+		l2 := PartirLista(l);
+      IrInicioLista(l2);
+      a := CrearHoja(CrearInfo(0, ActualLista(l2)));
+      RemoverDeLista(l2);
+
+      a^.izquierdo := Balanceado(l);
+      a^.izquierdo^.padre := a;
+
+      IF CantidadLista(l2) > 0 THEN
+         a^.derecho := Balanceado(l2);
+         a^.derecho^.padre := a;
+      END;
+
 	END;
 	RETURN a;
    
 END Balanceado;
 
-PROCEDURE InsertarBinario (i: TInfo; VAR a: Binario);
+PROCEDURE InsertarEnBinario (i: TInfo; VAR a: Binario);
 (* Inserta 'i' en 'a' respetando el orden del arbol.
    Si en 'a' ya hay un nodo cuyo dato de texto es igual a TextoInfo (i), no se
    hace nada. *)
@@ -123,29 +122,29 @@ BEGIN
    binarioLoop := a;
    continue := TRUE;
    WHILE continue DO 
-   		comparacion := Compare(TextoInfo(i), TextoInfo(binarioLoop^.elemento));
+   	comparacion := Compare(TextoInfo(i), TextoInfo(binarioLoop^.elemento));
 		IF comparacion = greater THEN
-            IF NOT TieneHijoDerecho(binarioLoop) THEN
-               binarioLoop^.derecho := CrearHoja(i);
-               binarioLoop^.derecho^.padre := binarioLoop;
-               continue := FALSE;
-            ELSE
-               binarioLoop := Derecho(binarioLoop);
-            END;
-        ELSIF comparacion = less THEN
-            IF NOT TieneHijoIzquierdo(binarioLoop) THEN
-               binarioLoop^.izquierdo := CrearHoja(i);
-               binarioLoop^.izquierdo^.padre := binarioLoop;
-               continue := FALSE;
-            ELSE
-               binarioLoop := Izquierdo(binarioLoop);
-            END;
+         IF NOT TieneHijoDerecho(binarioLoop) THEN
+            binarioLoop^.derecho := CrearHoja(i);
+            binarioLoop^.derecho^.padre := binarioLoop;
+            continue := FALSE;
+         ELSE
+            binarioLoop := Derecho(binarioLoop);
+         END;
+      ELSIF comparacion = less THEN
+         IF NOT TieneHijoIzquierdo(binarioLoop) THEN
+            binarioLoop^.izquierdo := CrearHoja(i);
+            binarioLoop^.izquierdo^.padre := binarioLoop;
+            continue := FALSE;
+         ELSE
+            binarioLoop := Izquierdo(binarioLoop);
+         END;
 		ELSE  
 			continue := FALSE;
 		END;
    END;
 
-END InsertarBinario;
+END InsertarEnBinario;
 
 PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario): BoolBinario;
 (* Si ningun nodo de 'a' cumple la condicion "clave criterio NumeroInfo (nodo)",
@@ -160,18 +159,27 @@ PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario): BoolBina
    (ver ejemplos en LetraTarea2.pdf)
    El arbol devuelto no comparte memoria con 'a'. *)
 
-	PROCEDURE Filtro(clave: CARDINAL; criterio: TCritFiltro; VAR a, nuevo: Binario): BOOLEAN;
-	VAR filtro: BOOLEAN;
+	PROCEDURE Filtro(clave: CARDINAL; criterio: TCritFiltro; a : Binario; VAR nuevo: Binario): BOOLEAN;
+	VAR 
+      filtro: BOOLEAN;
+      info : TInfo;
 	BEGIN
 		filtro := FALSE;
-		IF TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, nuevo) THEN filtro := TRUE; END;
-		IF TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, nuevo) THEN filtro := TRUE; END;
 		IF ((criterio = FltMayor) AND (clave > NumeroInfo(a^.elemento)))
 		OR ((criterio = FltMenor) AND (clave < NumeroInfo(a^.elemento)))
 		OR ((criterio = FltIgual) AND (clave = NumeroInfo(a^.elemento))) THEN
-			InsertarEnBinario(a^.elemento, nuevo);
-			filtro := TRUE;
+         info := CrearInfo(NumeroInfo(a^.elemento), TextoInfo(a^.elemento));
+         filtro := TRUE;
+         IF nuevo = NIL THEN
+            nuevo := CrearHoja(info);
+         ELSE
+			   InsertarEnBinario(info, nuevo);
+         END;
 		END;
+      IF (TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, nuevo)) 
+      OR (TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, nuevo)) THEN
+         filtro := TRUE;
+      END;
 		RETURN filtro;
 	END Filtro;
 
@@ -180,13 +188,12 @@ VAR
    resultado : BoolBinario;
 BEGIN
 
-	nuevo := CrearHoja();
-	IF NOT EsHoja(a) AND Filtro(clave, criterio, a, nuevo) THEN
+   nuevo := NIL;
+	IF Filtro(clave, criterio, a, nuevo) THEN
 		resultado.hayBinario := TRUE;
 		resultado.arbol := nuevo;
 	ELSE
-		DestruirBinario(nuevo);
-		resultado.hayBinario := FALSE;
+      resultado.hayBinario := FALSE;
 	END;
 	RETURN resultado;
 
@@ -265,7 +272,7 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
 
 BEGIN
 
-   IF NOT EsHoja(a) THEN
+   IF EsHoja(a) THEN
       CASE Compare(txt, TextoInfo(a^.elemento)) OF
          equal: DestruirBinario(a);
       END;
@@ -280,12 +287,8 @@ PROCEDURE DestruirBinario (VAR a: Binario);
 BEGIN
 
    IF a # NIL THEN
-      IF TieneHijoIzquierdo(a) THEN
-         DestruirBinario(a^.izquierdo);
-      END;
-      IF TieneHijoDerecho(a) THEN
-         DestruirBinario(a^.derecho);
-      END;
+      DestruirBinario(a^.izquierdo);
+      DestruirBinario(a^.derecho);
       DestruirInfo(a^.elemento);
       DISPOSE(a);
    END;
@@ -327,11 +330,10 @@ PROCEDURE EsHoja (a: Binario): BOOLEAN;
    contrario. *)
 BEGIN
 
-   IF NOT TieneHijoDerecho(a) AND NOT TieneHijoIzquierdo(a) THEN
-      RETURN TRUE;
+   IF TieneHijoDerecho(a) OR TieneHijoIzquierdo(a) THEN
+      RETURN FALSE;
    END;
-
-   RETURN FALSE;
+   RETURN TRUE;
    
 END EsHoja;
  
@@ -397,19 +399,16 @@ PROCEDURE CantidadBinario (a: Binario): CARDINAL;
 VAR nodosDerecha, nodosIzquierda, resultado : CARDINAL;
 BEGIN
 
-   IF EsHoja(a) THEN
-      resultado := 1;
-   ELSE
-      nodosDerecha := 0;
-      nodosIzquierda := 0;
-      IF TieneHijoDerecho(a) THEN
-         nodosDerecha := CantidadBinario(a^.derecho) + 1;
-      END;
-      IF TieneHijoIzquierdo(a) THEN
-         nodosIzquierda := CantidadBinario(a^.izquierdo) + 1;
-      END;
-      resultado := nodosDerecha + nodosIzquierda;
+   resultado := 1;
+   nodosDerecha := 0;
+   nodosIzquierda := 0;
+   IF TieneHijoDerecho(a) THEN
+      nodosDerecha := CantidadBinario(a^.derecho);
    END;
+   IF TieneHijoIzquierdo(a) THEN
+      nodosIzquierda := CantidadBinario(a^.izquierdo);
+   END;
+   resultado := resultado + nodosDerecha + nodosIzquierda;
 
    RETURN resultado;
    
@@ -423,14 +422,12 @@ PROCEDURE Linealizacion (a: Binario): ListaString;
 
 	PROCEDURE Recorrer(a: Binario; VAR l: ListaString);
 	BEGIN
-		InsertarEnLista(TextoInfo(a^.elemento), l);
-		IF TieneHijoIzquierdo(a) THEN
-			Recorrer(Izquierdo(a), l);
-		END;
-		IF TieneHijoDerecho(a) THEN
-			Recorrer(Derecho(a), l);
-		END;
-	END;
+      IF a # NIL THEN
+         Recorrer(Izquierdo(a), l);
+   		InsertarEnLista(TextoInfo(a^.elemento), l);
+   		Recorrer(Derecho(a), l);
+      END;
+	END Recorrer;
 
 VAR l: ListaString;
 BEGIN
@@ -449,10 +446,9 @@ PROCEDURE BuscarABB (txt: TString; a: Binario): BoolBinario;
 
    PROCEDURE BuscarTexto (txt: TString; a: Binario; VAR b: Binario): BOOLEAN;
    BEGIN
-      CASE Compare(TextoInfo(RaizBinario(a)), txt) OF
-         equal: 
-            b := a;
-            RETURN TRUE;
+      IF Compare(TextoInfo(RaizBinario(a)), txt) = equal THEN
+         b := a;
+         RETURN TRUE;
       ELSE
          IF NOT EsHoja(a) THEN
             IF (TieneHijoIzquierdo(a) AND (BuscarTexto(txt, Izquierdo(a), b))) 

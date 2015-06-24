@@ -11,8 +11,8 @@ InCo-FI-UDELAR
 *******************************************************************************)
 
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
-FROM Utils IMPORT TString, GENERICA;
-FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, RemoverDeLista, DestruirLista, ActualLista, IrInicioLista, EsPosicionValida, EsVaciaLista;
+FROM Utils IMPORT TString;
+FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, CantidadLista, RemoverDeLista, DestruirLista, ActualLista, EsVaciaLista, IrInicioLista;
 
 TYPE
 	ColaPrioridad = POINTER TO TipoColaPrioridad;
@@ -50,7 +50,7 @@ BEGIN
 		c^.listas[prio] := CrearLista();
 		i := c^.cantidad;
 		INC(c^.cantidad);
-		WHILE (i > 1) AND c^.prioridades[i] < c^.prioridades[i/2] DO
+		WHILE (i > 1) AND (c^.prioridades[i] < c^.prioridades[i/2]) DO
 			aux := c^.prioridades[i];
 			c^.prioridades[i] := c^.prioridades[i/2];
 			c^.prioridades[i/2] := aux;
@@ -76,6 +76,7 @@ PROCEDURE ExtraerDeMinimoColaPrioridad (VAR c: ColaPrioridad);
 VAR	
 	i, j : CARDINAL;
 	min, aux : RangoPrioridad;
+	continue : BOOLEAN;
 BEGIN
 
 	IF NOT EsVaciaColaPrioridad(c) THEN
@@ -83,21 +84,23 @@ BEGIN
 		IF CantidadLista(c^.listas[min]) = 1 THEN
 			DestruirLista(c^.listas[min]);
 			c^.listas[min] := NIL;
-			c^.prioridades[1] = c^.prioridades[c^.cantidad];
+			c^.prioridades[1] := c^.prioridades[c^.cantidad];
 			DEC(c^.cantidad);
+			continue := TRUE;
 			i := 1;
-			WHILE (i * 2) <= c^.cantidad DO
+			WHILE ((i * 2) <= c^.cantidad) AND continue DO
 				j := i * 2;
 				IF (j + 1 <= c^.cantidad) AND (c^.prioridades[j + 1] < c^.prioridades[j]) THEN
-					j := J + 1;
+					INC(j);
 				END;
 				IF (c^.prioridades[i] < c^.prioridades[j]) THEN
-					BREAK;
+					continue := FALSE;
+				ELSE
+					aux := c^.prioridades[i];
+					c^.prioridades[i] := c^.prioridades[j];
+					c^.prioridades[j] := aux;
+					i := j;
 				END;
-				aux := c^.prioridades[i];
-				c^.prioridades[i] := c^.prioridades[j];
-				c^.prioridades[j] := aux;
-				i := j;
 			END;
 		ELSE
 			IrInicioLista(c^.listas[min]);
@@ -109,10 +112,13 @@ END ExtraerDeMinimoColaPrioridad;
 
 PROCEDURE DestruirColaPrioridad (VAR c: ColaPrioridad);
 (* Libera la memoria asignada a 'c' y a todos sus elementos. *)
+VAR i : CARDINAL;
 BEGIN
 
 	FOR i := 1 TO c^.cantidad DO
-		DestruirLista(c^.listas[c^.prioridades[i]]);
+		IF c^.prioridades[i] > 0 THEN
+			DestruirLista(c^.listas[c^.prioridades[i]]);
+		END;
 	END;
 	DISPOSE(c);
    
@@ -137,7 +143,7 @@ PROCEDURE PerteneceAColaPrioridad (prio: RangoPrioridad; c: ColaPrioridad): BOOL
    El tiempo de ejecucion de la busqueda es O(1). *)
 BEGIN
 
-	RETURN c^.listas[prio] # NIL;
+	RETURN NOT EsVaciaLista(c^.listas[prio]);
    
 END PerteneceAColaPrioridad;
 

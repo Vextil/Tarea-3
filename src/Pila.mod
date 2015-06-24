@@ -16,6 +16,7 @@ TYPE
 	NodoPila = RECORD
 		elemento : TInfo;
 		anterior : Pila;
+		vacia : BOOLEAN;
 	END;
 
 (*********************)
@@ -30,6 +31,8 @@ BEGIN
 	NEW(pila);
 	pila^.elemento := NIL;
 	pila^.anterior := NIL;
+	pila^.vacia := TRUE;
+	RETURN pila;
    
 END CrearPila;
 
@@ -39,6 +42,7 @@ VAR pNuevo: Pila;
 BEGIN
    
 	IF EsVaciaPila(p) THEN
+		p^.vacia := FALSE;
 		p^.elemento := info;
 	ELSE
 		NEW(pNuevo);
@@ -63,6 +67,7 @@ BEGIN
 	IF NOT EsVaciaPila(p) THEN
 		IF p^.anterior = NIL THEN
 			p^.elemento := NIL;
+			p^.vacia := TRUE;
 		ELSE
 			pAux := p;
 			p := p^.anterior;
@@ -80,7 +85,7 @@ BEGIN
 		IF p^.anterior # NIL THEN
 			DestruirPila(p^.anterior);
 		END;
-		DestruirInfo(p^.elemento)
+		DestruirInfo(p^.elemento);
 		DISPOSE(p);
 	END;
    
@@ -90,7 +95,7 @@ PROCEDURE EsVaciaPila (p: Pila): BOOLEAN;
 (* Devuelve TRUE si la pila 'p' es vacia o FALSE en caso contrario. *)
 BEGIN
 
-	RETURN ((p^.elemento = NIL) AND (p^.anterior = NIL));
+	RETURN ((p = NIL) OR (p^.vacia = TRUE));
    
 END EsVaciaPila;
 

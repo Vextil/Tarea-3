@@ -12,14 +12,14 @@ InCo-FIng-UDELAR
 FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
 FROM Utils       IMPORT TString, CrearInfo;
 FROM Strings     IMPORT CompareResults, Compare;
-FROM ListaString IMPORT ListaString, IrInicioLista, EsPosicionValida, IrSiguienteLista, ActualLista, InsertarEnLista, EsVaciaLista, RemoverDeLista;
-FROM Binario     IMPORT Binario, Balanceado, CantidadBinario, DestruirBinario, CopiaBinario, InsertarBinario, CrearHoja, Linealizacion, BuscarABB, RemoverDeBinario;
+FROM ListaString IMPORT ListaString, IrInicioLista, IrSiguienteLista, EsPosicionValida, CrearLista, ActualLista, InsertarEnLista, EsVaciaLista, RemoverDeLista;
+FROM Binario     IMPORT Binario, BoolBinario, Balanceado, CantidadBinario, DestruirBinario, CopiaBinario, InsertarEnBinario, CrearHoja, Linealizacion, BuscarABB, RemoverDeBinario;
 
 TYPE	
 	Set = POINTER TO TipoSet;
 	TipoSet = RECORD
 		arbol : Binario;
-		cantidad : CARDINAL;
+		vacio : BOOLEAN;
 	END;
 
 
@@ -33,7 +33,7 @@ VAR set : Set;
 BEGIN
 
 	NEW(set);
-	set^.cantidad := 0;
+	set^.vacio := TRUE;
 	RETURN set;
    
 END CrearSet;
@@ -45,12 +45,14 @@ BEGIN
    
 	set := CrearSet();
 	IrInicioLista(l);
-	set^.arbol := CrearHoja(CrearInfo(0, ActualLista(l)));
-	RemoverDeLista(l);
-	WHILE NOT EsVaciaLista(l) DO
-		InsertarBinario(CrearInfo(0, ActualLista(l)), set^.arbol);
-		RemoverDeLista(l);
-		INC(set^.cantidad);
+	WHILE EsPosicionValida(l) DO
+		IF set^.vacio THEN
+			set^.arbol := CrearHoja(CrearInfo(0, ActualLista(l)));
+			set^.vacio := FALSE;
+		ELSE
+			InsertarEnBinario(CrearInfo(0, ActualLista(l)), set^.arbol);
+		END;
+		IrSiguienteLista(l);
 	END;
 	RETURN set;
 
@@ -64,20 +66,21 @@ BEGIN
 
 	NEW(nuevo);
 	nuevo^.arbol := CopiaBinario(S^.arbol);
-	nuevo^.cantidad := S^.cantidad;
-   
+	nuevo^.vacio := FALSE;
+   	RETURN nuevo;
+
 END CopiaSet;
 
 PROCEDURE InsertarEnSet (str: TString; VAR set: Set);
 (* Inserta 'str' en 'set'. Si ya estaba, no hace nada. *)
 BEGIN
 
-	IF set^.cantidad = 0 THEN
+	IF set^.vacio THEN
 		set^.arbol := CrearHoja(CrearInfo(0, str));
+		set^.vacio := FALSE;
 	ELSE
-		InsertarBinario(CrearInfo(0, str), set^.arbol);
+		InsertarEnBinario(CrearInfo(0, str), set^.arbol);
 	END;
-   	set^.cantidad := CantidadBinario(set^.arbol);
 
 END InsertarEnSet;
 
@@ -90,17 +93,16 @@ PROCEDURE Union (A, B: Set): Set;
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
 
-	PROCEDURE Insertar(a, b: ListaString; VAR cantidad: CARDINAL);
+	PROCEDURE Insertar(VAR a, b: ListaString);
 	(* Inserta elemento actual de 'A' en 'B' y lo elimina de 'A' *)
 	BEGIN
 
 		InsertarEnLista(ActualLista(a), b);
 		RemoverDeLista(a);
-		INC(cantidad);
 
-	END;
+	END Insertar;
 
-	PROCEDURE UnirListasSinRepeticiones(a, b: ListaString; VAR cantidad: CARDINAL): ListaString;
+	PROCEDURE UnirListasSinRepeticiones(VAR a, b: ListaString): ListaString;
 	(* Une dos listas dejando solo los elementos que estan en 'A' o en 'B' *)
 	VAR 
 		comparacion : CompareResults;
@@ -108,40 +110,42 @@ PROCEDURE Union (A, B: Set): Set;
 	BEGIN
 
 		c := CrearLista();
-		cantidad := 0;
 		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
 			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
 	   			comparacion := Compare(ActualLista(a), ActualLista(b));
 	   			IF comparacion = less THEN
-	   				Insertar(a, c, cantidad);
+	   				Insertar(a, c);
 	   			ELSIF comparacion = greater THEN
-	   				Insertar(b, c, cantidad);
+	   				Insertar(b, c);
 	   			ELSIF comparacion = equal THEN
 	   				RemoverDeLista(a);
 	   				RemoverDeLista(b);
 	   			END;
 	   		ELSIF EsPosicionValida(a) THEN
-	   			Insertar(a, c, cantidad);
+	   			Insertar(a, c);
 	   		ELSIF EsPosicionValida(b) THEN
-	   			Insertar(b, c, cantidad);
+	   			Insertar(b, c);
 	   		END;
 		END;
 		RETURN c;
-	END;
+
+	END UnirListasSinRepeticiones;
 
 VAR	
 	nuevo : Set;
-	nuevaLista : ListaString;
-	cantidad : CARDINAL;
+	nuevaLista, listaA, listaB : ListaString;
 BEGIN
 
 	listaA := Linealizacion(A^.arbol);
 	listaB := Linealizacion(B^.arbol);
-	nuevaLista := UnirListasSinRepeticiones(listaA, listaB, cantidad);
+	nuevaLista := UnirListasSinRepeticiones(listaA, listaB);
 	nuevo := CrearSet();
-	nuevo^.arbol := Balanceado(nuevaLista);
-	nuevo^.cantidad := cantidad;
-   
+	IF NOT EsVaciaLista(nuevaLista) THEN
+		nuevo^.arbol := Balanceado(nuevaLista);
+		nuevo^.vacio := FALSE;
+	END;
+   	RETURN nuevo;
+
 END Union;
 
 PROCEDURE Interseccion (A, B: Set): Set;
@@ -153,17 +157,16 @@ PROCEDURE Interseccion (A, B: Set): Set;
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
 
-	PROCEDURE Insertar(a, b: ListaString; VAR cantidad: CARDINAL);
+	PROCEDURE Insertar(VAR a, b: ListaString);
 	(* Inserta elemento actual de 'A' en 'B' y lo elimina de 'A' *)
 	BEGIN
 
 		InsertarEnLista(ActualLista(a), b);
 		RemoverDeLista(a);
-		INC(cantidad);
 
-	END;
+	END Insertar;
 
-	PROCEDURE UnirListasSinRepeticiones(a, b: ListaString; VAR cantidad: CARDINAL): ListaString;
+	PROCEDURE UnirListasSinRepeticiones(VAR a, b: ListaString): ListaString;
 	(* Une dos listas dejando solo los elementos que estan en 'A' y en 'B' *)
 	VAR 
 		comparacion : CompareResults;
@@ -171,7 +174,6 @@ PROCEDURE Interseccion (A, B: Set): Set;
 	BEGIN
 
 		c := CrearLista();
-		cantidad := 0;
 		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
 			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
 	   			comparacion := Compare(ActualLista(a), ActualLista(b));
@@ -180,29 +182,32 @@ PROCEDURE Interseccion (A, B: Set): Set;
 	   			ELSIF comparacion = greater THEN
 	   				RemoverDeLista(b);
 	   			ELSIF comparacion = equal THEN
-	   				Insertar(a, c, cantidad);
+	   				Insertar(a, c);
 	   			END;
 	   		ELSIF EsPosicionValida(a) THEN
-	   			Insertar(a, c, cantidad);
+	   			Insertar(a, c);
 	   		ELSIF EsPosicionValida(b) THEN
-	   			Insertar(b, c, cantidad);
+	   			Insertar(b, c);
 	   		END;
 		END;
 		RETURN c;
-	END;
+
+	END UnirListasSinRepeticiones;
 
 VAR	
 	nuevo : Set;
-	nuevaLista : ListaString;
-	cantidad : CARDINAL;
+	nuevaLista, listaA, listaB : ListaString;
 BEGIN
 
 	listaA := Linealizacion(A^.arbol);
 	listaB := Linealizacion(B^.arbol);
-	nuevaLista := UnirListasSinRepeticiones(listaA, listaB, cantidad);
+	nuevaLista := UnirListasSinRepeticiones(listaA, listaB);
 	nuevo := CrearSet();
-	nuevo^.arbol := Balanceado(nuevaLista);
-	nuevo^.cantidad := cantidad;
+	IF NOT EsVaciaLista(nuevaLista) THEN
+		nuevo^.arbol := Balanceado(nuevaLista);
+		nuevo^.vacio := FALSE;
+	END;
+   	RETURN nuevo;
 
 END Interseccion;
 
@@ -215,17 +220,16 @@ PROCEDURE Diferencia (A, B: Set): Set;
    En el conjunto resultado se debe poder ejecutar Pertenece en tiempo O(log n),
    en peor caso. *)
 
-	PROCEDURE Insertar(a, b: ListaString; VAR cantidad: CARDINAL);
+	PROCEDURE Insertar(VAR a, b: ListaString);
 	(* Inserta elemento actual de 'A' en 'B' y lo elimina de 'A' *)
 	BEGIN
 
 		InsertarEnLista(ActualLista(a), b);
 		RemoverDeLista(a);
-		INC(cantidad);
 
-	END;
+	END Insertar;
 
-	PROCEDURE UnirListasSinRepeticiones(a, b: ListaString; VAR cantidad: CARDINAL): ListaString;
+	PROCEDURE UnirListasSinRepeticiones(VAR a, b: ListaString): ListaString;
 	(* Une dos listas dejando solo los elementos que estan en 'A' y no en 'B' *)
 	VAR 
 		comparacion : CompareResults;
@@ -233,12 +237,11 @@ PROCEDURE Diferencia (A, B: Set): Set;
 	BEGIN
 
 		c := CrearLista();
-		cantidad := 0;
 		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
 			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
 	   			comparacion := Compare(ActualLista(a), ActualLista(b));
 	   			IF comparacion = less THEN
-	   				Insertar(a, c, cantidad);
+	   				Insertar(a, c);
 	   			ELSIF comparacion = greater THEN
 	   				RemoverDeLista(b);
 	   			ELSIF comparacion = equal THEN
@@ -246,26 +249,29 @@ PROCEDURE Diferencia (A, B: Set): Set;
 	   				RemoverDeLista(b);
 	   			END;
 	   		ELSIF EsPosicionValida(a) THEN
-	   			Insertar(a, c, cantidad);
+	   			Insertar(a, c);
 	   		ELSIF EsPosicionValida(b) THEN
-	   			Insertar(b, c, cantidad);
+	   			Insertar(b, c);
 	   		END;
 		END;
 		RETURN c;
-	END;
+
+	END UnirListasSinRepeticiones;
 
 VAR	
 	nuevo : Set;
-	nuevaLista : ListaString;
-	cantidad : CARDINAL;
+	nuevaLista, listaA, listaB : ListaString;
 BEGIN
 
 	listaA := Linealizacion(A^.arbol);
 	listaB := Linealizacion(B^.arbol);
-	nuevaLista := UnirListasSinRepeticiones(listaA, listaB, cantidad);
+	nuevaLista := UnirListasSinRepeticiones(listaA, listaB);
 	nuevo := CrearSet();
-	nuevo^.arbol := Balanceado(nuevaLista);
-	nuevo^.cantidad := cantidad;
+	IF NOT EsVaciaLista(nuevaLista) THEN
+		nuevo^.arbol := Balanceado(nuevaLista);
+		nuevo^.vacio := FALSE;
+	END;
+   	RETURN nuevo;
 
 END Diferencia;
 
@@ -275,15 +281,22 @@ END Diferencia;
 
 PROCEDURE RemoverDeSet (str: TString; VAR set: Set);
 (* Remueve 'str' de 'set'. Si no estaba, no hace nada. *)
+VAR 
+	buscar : BoolBinario;
+	cantidad : CARDINAL;
 BEGIN
 
-	IF set^.cantidad # 0 AND BuscarABB(str, set^.arbol) THEN
-   		IF set^.cantidad = 1 THEN
-   			DestruirBinario(set^.arbol);
-   		ELSE
-   			RemoverDeBinario(str, set^.arbol);
-   		END;
-   		DEC(set^.cantidad);
+	IF NOT set^.vacio THEN
+		buscar := BuscarABB(str, set^.arbol);
+		IF buscar.hayBinario THEN
+			cantidad := CantidadBinario(set^.arbol);
+	   		IF cantidad = 1 THEN
+	   			DestruirBinario(set^.arbol);
+	   			set^.vacio := TRUE;
+	   		ELSE
+	   			RemoverDeBinario(str, set^.arbol);
+	   		END;
+	   	END;
    	END;
 
 END RemoverDeSet;
@@ -292,7 +305,7 @@ PROCEDURE DestruirSet (VAR set: Set);
 (* Libera la memoria reservada por 'set'. *)
 BEGIN
 
-	IF set^.cantidad # 0 THEN
+	IF NOT set^.vacio THEN
 		DestruirBinario(set^.arbol);
 	END;
 	DISPOSE(set);
@@ -305,12 +318,14 @@ END DestruirSet;
 
 PROCEDURE PerteneceASet (str: TString; set: Set): BOOLEAN;
 (* Devuelve TRUE si 'str' es un elemento de 'set', FALSE en otro caso. *)
+VAR buscar : BoolBinario;
 BEGIN
    
-	IF set^.cantidad = 0 THEN
+	IF set^.vacio THEN
 		RETURN FALSE;
 	ELSE
-		RETURN BuscarABB(str, set^.arbol);
+		buscar := BuscarABB(str, set^.arbol);
+		RETURN buscar.hayBinario;
 	END;
 
 END PerteneceASet;
@@ -319,7 +334,7 @@ PROCEDURE EsVacioSet (set: Set): BOOLEAN;
 (* Devuelve TRUE si en 'set' no hay elementos, FALSE en otro caso. *)
 BEGIN
 
-	RETURN set^.cantidad = 0;
+	RETURN set^.vacio;
    
 END EsVacioSet;
 

@@ -10,12 +10,12 @@ InCo-FIng-UDELAR
 *******************************************************************************)
 
 FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
-FROM ListaString IMPORT ListaString, DestruirLista, CrearLista, EsVaciaLista, IrInicioLista, RemoverDeLista, InsertarEnLista, ActualLista;
+FROM ListaString IMPORT ListaString, DestruirLista, CrearLista, EsVaciaLista, RemoverDeLista, InsertarEnLista, ActualLista;
 FROM Solicitudes IMPORT RangoRecursos;
 FROM Utils       IMPORT TString;
 FROM Solicitudes IMPORT Solicitudes, CrearSolicitudes, IngresarSolicitud, EnAmbosSolicitudes, DestruirSolicitudes;
 FROM Procesos    IMPORT Procesos, CrearProcesos, AgregarProceso, ListarProcesos, MuyConsumidores, DestruirProcesos;
-FROM Set         IMPORT Set, ConstruirSet, InsertarEnSet, PerteneceASet;
+FROM Set         IMPORT Set, InsertarEnSet, PerteneceASet;
 
 TYPE 
    Sistema = POINTER TO TipoSistema;
@@ -61,7 +61,7 @@ PROCEDURE SolicitanOMuyConsumidores (mem: CARDINAL; rec: RangoRecursos; s: Siste
    elementos repetidos) de los identificadores de proceso de 's' que solicitan
    el recurso 'r' o que la memoria que consumen es mayor a 'mem'. *)   
 VAR	
-	setSolicitudes, procesos, setResultado : Set;
+	setResultado : Set;
 	listaConsumidores, listaProcesos, listaResultado : ListaString;
 BEGIN
 	
@@ -75,10 +75,10 @@ BEGIN
 	listaProcesos := ListarProcesos(s^.procesos);
 	listaResultado := CrearLista();
 	WHILE NOT EsVaciaLista(listaProcesos) DO
-		IF PerteneceASet(ActualLista(listaProcesos, setResultado)) THEN
+		IF PerteneceASet(ActualLista(listaProcesos), setResultado) THEN
 			InsertarEnLista(ActualLista(listaProcesos), listaResultado);
 		END;
-		RemoverDeLista(ListarProcesos);
+		RemoverDeLista(listaProcesos);
 	END;
 	RETURN listaResultado;
 

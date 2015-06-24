@@ -10,23 +10,13 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
-FROM Storage       IMPORT ALLOCATE, DEALLOCATE;
-FROM Utils         IMPORT TString, GENERICA;
+FROM Utils         IMPORT TString;
 FROM ListaString   IMPORT ListaString, InsertarEnLista, CrearLista, DestruirLista;
 FROM Set           IMPORT Set, ConstruirSet, DestruirSet, Union, Interseccion, Diferencia;
-FROM ColaPrioridad IMPORT CrearColaPrioridad, ExtraerDeMinimoColaPrioridad, PrioridadMinimoColaPrioridad, DestruirColaPrioridad, ElementosColaPrioridad, InsertarEnColaPrioridad;
+FROM ColaPrioridad IMPORT ColaPrioridad, MinimoColaPrioridad, EsVaciaColaPrioridad, CrearColaPrioridad, ExtraerDeMinimoColaPrioridad, PrioridadMinimoColaPrioridad, DestruirColaPrioridad, ElementosColaPrioridad, InsertarEnColaPrioridad;
 
-CONST MAX_RECURSOS = GENERICA;
-
-TYPE
-   Solicitudes;
-
-   RangoRecursos = [1 .. MAX_RECURSOS];
-
-TYPE
-   Solicitudes = ColaPrioridad;
+TYPE Solicitudes = ColaPrioridad;
    
-      (* AGREGADA 2015-06-12*)   
 PROCEDURE MenorRecurso (s: Solicitudes): CARDINAL;
 (* Devuelve el valor del menor recurso para el cual hay alguna solicitud o 
    0 si no hay solicitudes. 
@@ -37,7 +27,6 @@ BEGIN
 
 END MenorRecurso;
    
-      (* AGREGADA 2015-06-12*)   
 PROCEDURE CancelarSolicitud (VAR s: Solicitudes);
 (* Cancela la solicitud mas antigua correspondiente al menor recurso para el que
    haya solicitudes. Si no hay solicitudes no hace nada.
@@ -80,8 +69,8 @@ VAR lista : ListaString;
 BEGIN
    
    lista := CrearLista();
-   WHILE NOT EsVaciaColaPrioridad(c) DO
-      InsertarEnLista(MinimoColaPrioridad(s), l);
+   WHILE NOT EsVaciaColaPrioridad(s) DO
+      InsertarEnLista(MinimoColaPrioridad(s), lista);
       ExtraerDeMinimoColaPrioridad(s);
    END;
    RETURN lista;
@@ -149,7 +138,7 @@ BEGIN
    DestruirSet(s2);
    RETURN resultado;
 
-END EnAmbosSolicitudes;
+END SoloEnUnoSolicitudes;
 
 PROCEDURE DestruirSolicitudes (VAR s: Solicitudes);
 (* Libera la memoria asignada a 's'. *)
