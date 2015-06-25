@@ -1,0 +1,38 @@
+# ColaBinario
+CrearBinario naranja 3 1 pera 8 manzana 7 anana 4 durazno 15 limon 9 FIN
+CrearBinario naranja 9 2 amarillo 24 rojo 23 azul 0 violeta 8 celeste 47 rosado 15 FIN
+CrearLista 1 caballo conejo gato hamster hormiga perro vaca zorro FIN
+CrearBalanceado 1 3
+Izquierdo 1 4
+Derecho 3 5
+Linealizar 1 2
+AlturaCantidadBinario 2
+Encolar 2
+Encolar 1
+Encolar 4
+Encolar 3
+Desencolar
+Encolar 5
+Desencolar
+Desencolar
+# Solicitudes
+IngresarSolicitudes mesa 6 silla 44 puerta 7 ventana 83 pared 5 sillon 6 banco 44 banco 7 FIN
+CancelarSolicitud
+EnAlgunoSolicitudes 6 44 1
+EnAmbosSolicitudes 7 44 2
+SoloEnUnoSolicitudes 7 44 3
+ListarSolicitudes
+# Set
+ConstruirSet 1 9
+CopiarSet 2 4
+UnionInterDif 1 2 5 6 7 8
+InsertarEnSet 5 2
+RemoverDeSet 4 1
+PerteneceASet 4 2
+PerteneceASet 5 1
+PerteneceASet 5 2
+PerteneceASet 6 1
+PerteneceASet 6 2
+PerteneceASet 7 1
+PerteneceASet 7 2
+Fin

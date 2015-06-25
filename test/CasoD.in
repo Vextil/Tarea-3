@@ -1,0 +1,12 @@
+CrearBinario Uruguay 1 4 Argentina 7 Peru 3 CostaRica 9 Bolivia 11 Paraguay 2 Brasil 8 Ecuador 10 Mexico 12 Chile 5 Colombia 6 Venezuela 4 FIN
+ImprimirBinario 4
+AlturaCantidadBinario 4
+FiltroBinario 4 5 > 1
+BuscarABB 4 Uruguay
+BuscarABB 1 Uruguay
+Encolar 4
+Encolar 1
+Desencolar
+Desencolar
+Desencolar
+Fin

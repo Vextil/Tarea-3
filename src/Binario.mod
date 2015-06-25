@@ -176,8 +176,10 @@ PROCEDURE Filtrar (clave: CARDINAL; criterio: TCritFiltro; a: Binario): BoolBina
 			   InsertarEnBinario(info, nuevo);
          END;
 		END;
-      IF (TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, nuevo)) 
-      OR (TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, nuevo)) THEN
+      IF (TieneHijoDerecho(a) AND Filtro(clave, criterio, a^.derecho, nuevo)) THEN
+         filtro := TRUE;
+      END;
+      IF (TieneHijoIzquierdo(a) AND Filtro(clave, criterio, a^.izquierdo, nuevo)) THEN
          filtro := TRUE;
       END;
 		RETURN filtro;
@@ -441,34 +443,23 @@ END Linealizacion;
 
 PROCEDURE BuscarABB (txt: TString; a: Binario): BoolBinario;
 (* Devuelve el subarbol que tiene como raiz al elemento cuyo dato de texto es
-   'txt' y el discriminador 'hayBinario' del elemanto devuelto es TRUE.
+   'txt' y el discriminador 'hayBinario' del elemento devuelto es TRUE.
    Si 'txt' no pertenece a 'a', 'hayBinario' es FALSE. *)
 
-   PROCEDURE BuscarTexto (txt: TString; a: Binario; VAR b: Binario): BOOLEAN;
-   BEGIN
-      IF Compare(TextoInfo(RaizBinario(a)), txt) = equal THEN
-         b := a;
-         RETURN TRUE;
-      ELSE
-         IF NOT EsHoja(a) THEN
-            IF (TieneHijoIzquierdo(a) AND (BuscarTexto(txt, Izquierdo(a), b))) 
-            OR (TieneHijoDerecho(a) AND (BuscarTexto(txt, Derecho(a), b))) THEN
-               RETURN TRUE;
-            END;
-         END;
-      END;
-      RETURN FALSE;
-   END BuscarTexto;
-
 VAR resultado : BoolBinario;
-   subArbol: Binario;
 BEGIN
 
-   IF BuscarTexto(txt, a, subArbol) THEN
+   resultado.hayBinario := FALSE;
+   IF Compare(TextoInfo(a^.elemento), txt) = equal THEN
       resultado.hayBinario := TRUE;
-      resultado.arbol := subArbol;
-   ELSE
-      resultado.hayBinario := FALSE;
+      resultado.arbol := a;
+   ELSIF NOT EsHoja(a) THEN
+      IF TieneHijoIzquierdo(a) THEN
+         resultado := BuscarABB(txt, a^.izquierdo);
+      END;
+      IF (NOT resultado.hayBinario) AND (TieneHijoDerecho(a)) THEN
+         resultado := BuscarABB(txt, a^.derecho);
+      END;
    END;
    RETURN resultado;
 

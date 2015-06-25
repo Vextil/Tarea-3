@@ -1,0 +1,36 @@
+Apilar texto1 200
+Apilar texto2 100
+Desapilar
+CrearBinario texto100 100 1 texto050 100 texto150 200 texto250 100 FIN
+FiltroBinario 1 120 > 2
+RemoverBinario 2 texto250
+BuscarABB 2 texto050
+ImprimirBinario 2
+Linealizar 1 1
+CrearLista 2 texto1 texto100 texto2 texto3 texto4 FIN
+ConstruirSet 1 1
+ConstruirSet 2 2
+CopiarSet 1 3
+InsertarEnSet 1 2
+RemoverDeSet 3 2
+UnionInterDif 1 3 4 5 6 7
+PerteneceASet 5 1
+UnionInterDif 1 2 4 5 6 7
+PerteneceASet 6 2
+IngresarSolicitudes texto1 2 texto100 2 texto2 2 texto3 2 texto4 2 texto050 9 texto100 9 texto150 9 texto250 9 texto1 1 texto0 1 FIN
+CancelarSolicitud
+CancelarSolicitud
+EnAlgunoSolicitudes 2 9 1
+EnAmbosSolicitudes 2 9 2
+SoloEnUnoSolicitudes 2 9 3
+PerteneceASet 1 1
+PerteneceASet 2 1
+PerteneceASet 3 1
+PerteneceASet 1 2
+PerteneceASet 2 2
+PerteneceASet 3 2
+ListarSolicitudes
+CorrerProcesos xc 100 notepad 300 FIN
+PedirRecursos xc 5 FIN
+SolicitanOMuyConsumidores 200 5
+Fin

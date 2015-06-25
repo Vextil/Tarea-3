@@ -1,0 +1,61 @@
+1>OK
+2>
+    (19,sanchez)
+      (9,rolan)
+     (7,rodriguez)
+   (6,ppereira)
+  (16,pereira)
+ (1,mueslera)
+    (14,lodeiro)
+   (3,godin)
+  (2,gimenez)
+    (21,cavani)
+   (17,arevalo)
+3>
+   (14,lodeiro)
+  (3,godin)
+ (2,gimenez)
+   (21,cavani)
+  (17,arevalo)
+4>OK
+5>
+  (6,ppereira)
+ (1,mueslera)
+   (3,godin)
+  (2,gimenez)
+6>OK
+7>OK
+8>
+    (19,sanchez)
+      (9,rolan)
+     (7,rodriguez)
+   (6,ppereira)
+  (16,pereira)
+ (1,mueslera)
+    (14,lodeiro)
+   (3,godin)
+  (2,gimenez)
+    (21,cavani)
+   (17,arevalo)
+
+9>OK
+10>Ordenada. arevalo cavani gimenez godin lodeiro mueslera pereira ppereira rodriguez rolan sanchez 
+11>gimenez
+12>OK
+13>OK
+14>OK
+15>Altura: 3; Cantidad: 5
+16>Altura: 3; Cantidad: 4
+17>Hay 11 procesos.
+18>boot chrome firefox geoserver gimp gvsig ionic jetty notepad qgis tomcat 
+19>boot chrome firefox gimp notepad qgis 
+20>La memoria que se libera es 20.
+21>
+(80,chrome) 
+(70,firefox) 
+(40,geoserver) (30,ionic) 
+(90,gimp) (50,qgis) 
+(20,jetty) (10,tomcat) 
+(100,notepad) 
+(100,boot) 
+22>Fin

@@ -174,21 +174,16 @@ PROCEDURE Interseccion (A, B: Set): Set;
 	BEGIN
 
 		c := CrearLista();
-		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
-			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
-	   			comparacion := Compare(ActualLista(a), ActualLista(b));
-	   			IF comparacion = less THEN
-	   				RemoverDeLista(a);
-	   			ELSIF comparacion = greater THEN
-	   				RemoverDeLista(b);
-	   			ELSIF comparacion = equal THEN
-	   				Insertar(a, c);
-	   			END;
-	   		ELSIF EsPosicionValida(a) THEN
-	   			Insertar(a, c);
-	   		ELSIF EsPosicionValida(b) THEN
-	   			Insertar(b, c);
-	   		END;
+		WHILE EsPosicionValida(a) AND EsPosicionValida(b) DO
+   			comparacion := Compare(ActualLista(a), ActualLista(b));
+   			IF comparacion = less THEN
+   				RemoverDeLista(a);
+   			ELSIF comparacion = greater THEN
+   				RemoverDeLista(b);
+   			ELSIF comparacion = equal THEN
+   				Insertar(a, c);
+   				RemoverDeLista(b);
+   			END;
 		END;
 		RETURN c;
 
@@ -237,8 +232,8 @@ PROCEDURE Diferencia (A, B: Set): Set;
 	BEGIN
 
 		c := CrearLista();
-		WHILE EsPosicionValida(a) OR EsPosicionValida(b) DO
-			IF EsPosicionValida(a) AND EsPosicionValida(b) THEN
+		WHILE EsPosicionValida(a) DO
+			IF EsPosicionValida(b) THEN
 	   			comparacion := Compare(ActualLista(a), ActualLista(b));
 	   			IF comparacion = less THEN
 	   				Insertar(a, c);
@@ -248,10 +243,8 @@ PROCEDURE Diferencia (A, B: Set): Set;
 	   				RemoverDeLista(a);
 	   				RemoverDeLista(b);
 	   			END;
-	   		ELSIF EsPosicionValida(a) THEN
+	   		ELSE
 	   			Insertar(a, c);
-	   		ELSIF EsPosicionValida(b) THEN
-	   			Insertar(b, c);
 	   		END;
 		END;
 		RETURN c;
@@ -286,7 +279,7 @@ VAR
 	cantidad : CARDINAL;
 BEGIN
 
-	IF NOT set^.vacio THEN
+	IF set^.vacio = FALSE THEN
 		buscar := BuscarABB(str, set^.arbol);
 		IF buscar.hayBinario THEN
 			cantidad := CantidadBinario(set^.arbol);

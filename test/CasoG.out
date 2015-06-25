@@ -1,0 +1,39 @@
+1>OK
+2>OK
+3>t2 - 5
+4>t1 - 95
+5>OK
+6>Ordenada. a b c d e f g 
+7>OK
+8>s
+9>NO ordenada. t1 t2 e1 e2 g 
+10>OK
+11>OK
+12>OK
+13>Altura: 2; Cantidad: 3
+14>Altura: 3; Cantidad: 7
+15>OK
+16>OK
+17>
+   (0,g)
+  (0,f)
+   (0,e)
+ (0,d)
+   (0,c)
+  (0,b)
+   (0,a)
+
+18>Hay 8 procesos.
+19>La memoria que se libera es 200.
+20>pr15 pr20 pr50 pr60 
+21>
+(150,pr60) 
+(200,pr15) (200,pr50) 
+(200,pr20) (100,pr80) 
+(100,pr30) 
+(100,boot) 
+22>boot pr15 pr20 pr30 pr50 pr60 pr80 
+23>OK
+24>OK
+25>pr10 pr15 pr20 pr30 pr50 pr60 
+26>Fin

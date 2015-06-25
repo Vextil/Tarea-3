@@ -1,0 +1,29 @@
+# ColaPrioridad
+InsertarCP brasil 8 uruguay 15 argentina 14 bolivia 1 colombia 1 peru 2 paraguay 2 FIN
+ExtraerCP
+ExtraerCP
+ExtraerCP
+ElementosCP 15 1
+ImprimirLista 1
+# Pila
+Apilar a 3
+Apilar b 5
+Apilar d 4
+Apilar c 3
+Apilar m 2
+Apilar p 1
+Apilar r 6
+Apilar s 10
+Apilar d 10
+Desapilar
+Desapilar
+Desapilar
+Desapilar
+Desapilar
+# Procesos
+AgregarProcesos chrome 28000 firefox 25400 ie 10000 FIN
+EliminarProceso ie
+ImprimirProcesos
+ListarProcesos
+MuyConsumidores 26000
+Fin

@@ -1,0 +1,26 @@
+InsertarCP t1 95 t2 95 e1 95 e2 95 g 95 s 95 t1 99 t2 5 a 95 b 95 c 95 d 95 e 95 f 95 g 95 FIN
+ElementosCP 95 1
+ExtraerCP
+ExtraerCP
+PartirLista 1 2
+ImprimirLista 2
+CopiaLista 1 3
+RemoverDeLista 3 6
+ImprimirLista 3
+CrearBalanceado 2 1
+Izquierdo 1 2
+Derecho 1 3
+AlturaCantidadBinario 2
+AlturaCantidadBinario 1
+Encolar 1
+Encolar 2
+Desencolar
+AgregarProcesos pr30 100 pr20 200 pr80 100 pr50 200 pr60 150 pr10 200 pr15 200 FIN
+EliminarProceso pr10
+MuyConsumidores 100
+ImprimirProcesos
+ListarProcesos
+CorrerProcesos pr30 100 pr20 200 pr80 100 pr50 200 pr60 150 pr10 200 pr15 200 FIN
+PedirRecursos pr30 95 pr20 5 pr20 95 pr60 98 pr80 5 FIN
+SolicitanOMuyConsumidores 100 95
+Fin

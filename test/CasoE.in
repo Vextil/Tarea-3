@@ -1,0 +1,22 @@
+CrearBinario mueslera 1 1 pereira 16 gimenez 2 godin 3 ppereira 6 sanchez 19 arevalo 17 lodeiro 14 rodriguez 7 rolan 9 cavani 21 FIN
+ImprimirBinario 1
+BuscarABB 1 gimenez
+FiltroBinario 1 7 > 2 
+ImprimirBinario 2
+Encolar 1
+Encolar 2
+Desencolar
+Linealizar 1 1
+ImprimirLista 1
+RemoverDeLista 1 3
+CrearBalanceado 1 3
+Izquierdo 3 4
+Derecho 3 5
+AlturaCantidadBinario 4 
+AlturaCantidadBinario 5
+AgregarProcesos notepad 100 tomcat 10 jetty 20 gvsig 20 ionic 30 geoserver 40 qgis 50 gvsig 60 firefox 70 chrome 80 gimp 90 FIN 
+ListarProcesos
+MuyConsumidores 40
+EliminarProceso gvsig
+ImprimirProcesos
+Fin

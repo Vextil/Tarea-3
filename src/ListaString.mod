@@ -205,7 +205,9 @@ PROCEDURE EsPosicionValida (l: ListaString): BOOLEAN;
    El tiempo de ejecucion es O(1). *)
 BEGIN
 
-	IF l^.actual = NIL THEN
+	IF EsVaciaLista(l) THEN
+		RETURN FALSE;
+	ELSIF l^.actual = NIL THEN
 		RETURN FALSE;
 	ELSE
 		RETURN TRUE;

@@ -1,0 +1,58 @@
+1>OK
+2>
+  (4,Venezuela)
+ (1,Uruguay)
+   (3,Peru)
+     (2,Paraguay)
+       (12,Mexico)
+      (10,Ecuador)
+    (9,CostaRica)
+        (6,Colombia)
+       (5,Chile)
+      (8,Brasil)
+     (11,Bolivia)
+  (7,Argentina)
+3>Altura: 8; Cantidad: 12
+4>OK
+5>
+  (4,Venezuela)
+ (1,Uruguay)
+   (3,Peru)
+     (2,Paraguay)
+       (12,Mexico)
+      (10,Ecuador)
+    (9,CostaRica)
+        (6,Colombia)
+       (5,Chile)
+      (8,Brasil)
+     (11,Bolivia)
+  (7,Argentina)
+6>
+  (4,Venezuela)
+ (1,Uruguay)
+  (3,Peru)
+   (2,Paraguay)
+7>OK
+8>OK
+9>
+  (4,Venezuela)
+ (1,Uruguay)
+   (3,Peru)
+     (2,Paraguay)
+       (12,Mexico)
+      (10,Ecuador)
+    (9,CostaRica)
+        (6,Colombia)
+       (5,Chile)
+      (8,Brasil)
+     (11,Bolivia)
+  (7,Argentina)
+
+10>
+  (4,Venezuela)
+ (1,Uruguay)
+  (3,Peru)
+   (2,Paraguay)
+
+11>La cola estaba vacia.
+12>Fin

@@ -1,0 +1,25 @@
+InsertarCP a 1 b 2 c 2 d 2 e 3 f 2 g 2 h 2 FIN
+ExtraerCP
+ExtraerCP
+ElementosCP 2 1
+ImprimirLista 1
+CrearBalanceado 1 1
+ImprimirBinario 1
+Linealizar 1 2
+ImprimirLista 2
+Encolar 1
+Desencolar
+Desencolar
+PartirLista 2 3
+ImprimirLista 2
+ImprimirLista 3
+Apilar a 1
+Apilar b 2
+Desapilar
+Desapilar
+Desapilar
+IngresarSolicitudes chrome 1 notepad 2 xc 1 notepad 1 FIN
+SoloEnUnoSolicitudes 1 2 1
+CrearLista 1 chrome notepad xc FIN
+PerteneceASet 1 1
+Fin

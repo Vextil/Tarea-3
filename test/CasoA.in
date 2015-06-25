@@ -1,0 +1,27 @@
+CrearLista 1 a b c d e f g h i FIN
+CrearBalanceado 1 1
+ImprimirBinario 1
+CrearBinario o 1 1 k 2 a 3 n 4 r 5 y 6 u 7 FIN
+ImprimirBinario 1
+Linealizar 1 1
+ImprimirLista 1
+FiltroBinario 1 2 < 2
+ImprimirBinario 2
+ConstruirSet 1 1
+CopiarSet 1 2
+CrearLista 2 a k n o r FIN
+RemoverDeSet 2 2
+PerteneceASet 2 1
+UnionInterDif 1 2 3 4 5 6
+PerteneceASet 6 1
+AgregarProcesos notepad++ 5 word 50 thunderbird 20 chrome 999999 FIN
+ListarProcesos
+MuyConsumidores 9999
+IngresarSolicitudes chrome 1 notepad++ 2 thunderbird 1 word 3 FIN
+EnAlgunoSolicitudes 1 3 1
+CrearLista 1 thunderbird word chrome notepad++ FIN
+PerteneceASet 1 1
+IngresarSolicitudes chrome 3 FIN
+EnAmbosSolicitudes 1 3 1
+PerteneceASet 1 1
+Fin

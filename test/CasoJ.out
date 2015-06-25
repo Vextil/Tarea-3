@@ -1,0 +1,32 @@
+1># ColaPrioridad
+2>OK
+3>bolivia - 1
+4>colombia - 1
+5>peru - 2
+6>OK
+7>Ordenada. uruguay 
+8># Pila
+9>OK
+10>OK
+11>OK
+12>OK
+13>OK
+14>OK
+15>OK
+16>OK
+17>OK
+18>(10,d)
+19>(10,s)
+20>(6,r)
+21>(1,p)
+22>(2,m)
+23># Procesos
+24>Hay 4 procesos.
+25>La memoria que se libera es 10000.
+26>
+(25400,firefox) 
+(28000,chrome) 
+(100,boot) 
+27>boot chrome firefox 
+28>chrome 
+29>Fin

@@ -1,0 +1,26 @@
+CrearLista 1 mueslera pereira gimenez godin  FIN
+InsertarCP sanchez 19 arevalo 17 lodeiro 14 rodriguez 7 rolan 19 cavani 21 mayada 19 FIN
+ExtraerCP
+ElementosCP 19 2
+ImprimirLista 2
+ConstruirSet 1 1
+ConstruirSet 2 2
+UnionInterDif 1 2 3 4 5 6
+PerteneceASet 3 1
+PerteneceASet 4 1
+PerteneceASet 5 1
+PerteneceASet 6 1
+IngresarSolicitudes notepad 1 tomcat 1 jetty 2 gvsig 2 ionic 3 geoserver 1 qgis 3 gvsig 5 firefox 4 chrome 4 gimp 6 FIN
+EnAlgunoSolicitudes 1 3 7
+EnAmbosSolicitudes 2 5 8
+SoloEnUnoSolicitudes 2 5 9
+CrearLista 3 gvsig notepad qgis jetty  FIN
+PerteneceASet 8 3
+PerteneceASet 7 3
+PerteneceASet 9 3
+CorrerProcesos notepad 60 tomcat 60 jetty 20 ionic 30 geoserver 40 FIN 
+PedirRecursos notepad 1 tomcat 1 jetty 3 ionic 3 jetty 4 geoserver 3 notepad 2 notepad 80 notepad 1 tomcat 1 geoserver 3 FIN
+SolicitanOMuyConsumidores 30 1
+SolicitanOMuyConsumidores 101 4
+SolicitanOMuyConsumidores 1 1
+Fin

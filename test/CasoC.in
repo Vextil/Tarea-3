@@ -1,0 +1,20 @@
+CrearLista 10 Migliore Sandoval Valdez MacEachen Rodriguez MarcelNovick Aguiar Japo Urreta T8ny Zalayeta FIN
+ImprimirLista 10
+RemoverDeLista 10 2
+ImprimirLista 10
+Apilar Guruceaga 1
+Apilar Macaluso 13
+Apilar Leyes 33
+Apilar JM19 19
+Desapilar
+Desapilar
+Desapilar
+Desapilar
+Desapilar
+CrearLista 9 Munua Romero Gorga DeLosSantos Diaz Arismendi Porras Barcia Ramos DePena Alonso FIN
+ConstruirSet 10 1
+ConstruirSet 9 2
+PerteneceASet 1 9
+AgregarProcesos a 15 b 23 c 88 d 19 e 10 f 57 FIN
+ImprimirProcesos
+Fin

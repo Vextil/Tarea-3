@@ -1,0 +1,58 @@
+1># ColaBinario
+2>OK
+3>OK
+4>OK
+5>OK
+6>OK
+7>OK
+8>OK
+9>Altura: 4; Cantidad: 7
+10>OK
+11>OK
+12>OK
+13>OK
+14>
+   (8,violeta)
+    (15,rosado)
+  (23,rojo)
+ (9,naranja)
+    (47,celeste)
+   (0,azul)
+  (24,amarillo)
+
+15>OK
+16>
+  (8,pera)
+ (3,naranja)
+  (7,manzana)
+     (9,limon)
+    (15,durazno)
+   (4,anana)
+
+17>
+ (7,manzana)
+    (9,limon)
+   (15,durazno)
+  (4,anana)
+
+18># Solicitudes
+19>OK
+20> 5
+21>OK
+22>OK
+23>OK
+24>(6,mesa) (6,sillon) (7,puerta) (7,banco) (44,silla) (44,banco) (83,ventana) 
+25># Set
+26>OK
+27>OK
+28>OK
+29>OK
+30>OK
+31>NO NO NO NO NO NO 
+32>NO NO NO NO NO NO NO NO 
+33>SI SI SI SI SI SI 
+34>NO NO NO NO NO NO NO NO 
+35>NO NO NO NO NO NO 
+36>NO NO NO NO NO NO NO NO 
+37>NO NO NO NO NO NO 
+38>Fin

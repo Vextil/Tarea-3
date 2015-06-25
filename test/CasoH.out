@@ -1,0 +1,39 @@
+1>OK
+2>OK
+3>(100,texto2)
+4>OK
+5>OK
+6>OK
+7>
+ (100,texto050)
+8>
+ (100,texto100)
+  (100,texto050)
+9>OK
+10>OK
+11>OK
+12>OK
+13>OK
+14>OK
+15>OK
+16>OK
+17>SI NO SI SI 
+18>OK
+19>NO NO NO NO NO 
+20>OK
+21> 1
+22> 1
+23>OK
+24>OK
+25>OK
+26>SI SI SI SI 
+27>NO SI NO NO 
+28>SI NO SI SI 
+29>SI SI SI SI SI 
+30>NO SI NO NO NO 
+31>SI NO SI SI SI 
+32>(2,texto1) (2,texto100) (2,texto2) (2,texto3) (2,texto4) (9,texto050) (9,texto100) (9,texto150) (9,texto250) 
+33>OK
+34>OK
+35>notepad xc 
+36>Fin

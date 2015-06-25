@@ -1,3 +1,4 @@
+(* 4623178 *)
 IMPLEMENTATION MODULE Sistema;
 (*******************************************************************************
 Modulo de implementacion de Sistema.
@@ -10,7 +11,7 @@ InCo-FIng-UDELAR
 *******************************************************************************)
 
 FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
-FROM ListaString IMPORT ListaString, DestruirLista, CrearLista, EsVaciaLista, RemoverDeLista, InsertarEnLista, ActualLista;
+FROM ListaString IMPORT ListaString, EsPosicionValida, DestruirLista, CrearLista, EsVaciaLista, RemoverDeLista, InsertarEnLista, ActualLista;
 FROM Solicitudes IMPORT RangoRecursos;
 FROM Utils       IMPORT TString;
 FROM Solicitudes IMPORT Solicitudes, CrearSolicitudes, IngresarSolicitud, EnAmbosSolicitudes, DestruirSolicitudes;
@@ -67,19 +68,20 @@ BEGIN
 	
 	setResultado := EnAmbosSolicitudes(rec, rec, s^.solicitudes);
 	listaConsumidores := MuyConsumidores(mem, s^.procesos);
-	WHILE NOT EsVaciaLista(listaConsumidores) DO
+	WHILE EsPosicionValida(listaConsumidores) DO
 		InsertarEnSet(ActualLista(listaConsumidores), setResultado);
 		RemoverDeLista(listaConsumidores);
 	END;
 	DestruirLista(listaConsumidores);
 	listaProcesos := ListarProcesos(s^.procesos);
 	listaResultado := CrearLista();
-	WHILE NOT EsVaciaLista(listaProcesos) DO
+	WHILE EsPosicionValida(listaProcesos) DO
 		IF PerteneceASet(ActualLista(listaProcesos), setResultado) THEN
 			InsertarEnLista(ActualLista(listaProcesos), listaResultado);
 		END;
 		RemoverDeLista(listaProcesos);
 	END;
+	DestruirLista(listaProcesos);
 	RETURN listaResultado;
 
 END SolicitanOMuyConsumidores;

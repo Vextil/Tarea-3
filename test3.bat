@@ -16,7 +16,7 @@ IF EXIST TestTarea3.exe del TestTarea3.exe
 xc =make TestTarea3.mod 
 
 
-SET CASOSGENERAL=(00 01 02 03 04 05 06 07 08 09 11 12 13 14 15 16 17 18 19)
+SET CASOSGENERAL=(00 01 02 03 04 05 06 07 08 09 11 12 13 14 15 16 17 18 19 A B C D E F G H I J)
 
 FOR %%I IN %CASOSGENERAL% DO TestTarea3.exe < test\Caso%%I.in > test\Caso%%I.sal
 FOR %%I IN %CASOSGENERAL% DO diff test\Caso%%I.out test\Caso%%I.sal > test\Caso%%I.diff
