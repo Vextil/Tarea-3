@@ -11,14 +11,14 @@ InCo-FI-UDELAR
 *******************************************************************************)
 
 FROM Storage IMPORT ALLOCATE, DEALLOCATE;
-FROM Utils IMPORT TString;
+FROM Utils IMPORT TString, CrearInfo, TInfo;
 FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, CantidadLista, RemoverDeLista, DestruirLista, ActualLista, EsVaciaLista, IrInicioLista;
-
+FROM Binario IMPORT CrearHoja, InsertarEnBinario, RemoverDeBinario, RaizBinario, DestruirBinario;
 TYPE
 	ColaPrioridad = POINTER TO TipoColaPrioridad;
 	TipoColaPrioridad = RECORD
-		listas : ARRAY [1..K] OF ListaString;
-		prioridades : ARRAY [1..K] OF RangoPrioridad;
+		arbol : Binario;
+		listas : ARRAY [RangoPrioridad] OF ListaString;
 		cantidad : CARDINAL;
 	END;
 
@@ -31,9 +31,7 @@ PROCEDURE CrearColaPrioridad (): ColaPrioridad;
 VAR c : ColaPrioridad;
 BEGIN
 
-	NEW(c);
-	c^.cantidad := 0;
-	RETURN c;
+	RETURN NIL;
    
 END CrearColaPrioridad;
 
@@ -44,18 +42,19 @@ PROCEDURE InsertarEnColaPrioridad (txt: TString; prio: RangoPrioridad; VAR c: Co
 VAR 
 	i : CARDINAL;
 	aux : RangoPrioridad;
+	info : TInfo;
 BEGIN
 
-	IF NOT PerteneceAColaPrioridad(prio, c) THEN
+	info := CrearInfo(prio, "MODULA CARD A TEXTO");
+	IF c = NIL THEN
+		NEW(c);
+		c^.arbol := CrearHoja(info);
 		c^.listas[prio] := CrearLista();
-		i := c^.cantidad;
+		c^.cantidad := 1;
+	ELSIF NOT PerteneceAColaPrioridad(prio, c) THEN
+		InsertarEnBinario(info, c^.arbol);
+		c^.listas[prio] := CrearLista();
 		INC(c^.cantidad);
-		WHILE (i > 1) AND (c^.prioridades[i] < c^.prioridades[i/2]) DO
-			aux := c^.prioridades[i];
-			c^.prioridades[i] := c^.prioridades[i/2];
-			c^.prioridades[i/2] := aux;
-			i := i / 2;
-		END;
 	END;
 	InsertarEnLista(txt, c^.listas[prio]);
    
@@ -75,33 +74,19 @@ PROCEDURE ExtraerDeMinimoColaPrioridad (VAR c: ColaPrioridad);
 *)
 VAR	
 	i, j : CARDINAL;
-	min, aux : RangoPrioridad;
+	min : RangoPrioridad;
 	continue : BOOLEAN;
 BEGIN
 
 	IF NOT EsVaciaColaPrioridad(c) THEN
-		min := c^.prioridades[1];
+		minimo := NumeroInfo(RaizBinario(c^.arbol));
 		IF CantidadLista(c^.listas[min]) = 1 THEN
 			DestruirLista(c^.listas[min]);
-			c^.listas[min] := NIL;
-			c^.prioridades[1] := c^.prioridades[c^.cantidad];
-			DEC(c^.cantidad);
-			continue := TRUE;
-			i := 1;
-			WHILE ((i * 2) <= c^.cantidad) AND continue DO
-				j := i * 2;
-				IF (j + 1 <= c^.cantidad) AND (c^.prioridades[j + 1] < c^.prioridades[j]) THEN
-					INC(j);
-				END;
-				IF (c^.prioridades[i] < c^.prioridades[j]) THEN
-					continue := FALSE;
-				ELSE
-					aux := c^.prioridades[i];
-					c^.prioridades[i] := c^.prioridades[j];
-					c^.prioridades[j] := aux;
-					i := j;
-				END;
-			END;
+			IF c^.cantidad = 1 THEN
+				DestruirBinario(c^.arbol);
+			ELSE
+				RemoverDeBinario(TextoInfo(RaizBinario(c^.arbol)));
+			END;		
 		ELSE
 			IrInicioLista(c^.listas[min]);
 			RemoverDeLista(c^.listas[min]);
@@ -115,11 +100,10 @@ PROCEDURE DestruirColaPrioridad (VAR c: ColaPrioridad);
 VAR i : CARDINAL;
 BEGIN
 
-	FOR i := 1 TO c^.cantidad DO
-		IF c^.prioridades[i] > 0 THEN
-			DestruirLista(c^.listas[c^.prioridades[i]]);
-		END;
+	FOR i := 1 TO RangoPrioridad DO
+		DestruirLista(c^.listas[i]);
 	END;
+	DestruirBinario(c^.arbol);
 	DISPOSE(c);
    
 END DestruirColaPrioridad;

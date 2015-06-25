@@ -15,7 +15,7 @@ FROM STextIO IMPORT WriteString, WriteLn;
 FROM Strings IMPORT CompareResults, Compare;
 
 FROM Utils IMPORT TInfo, TString, CrearInfo, InfoAString, TCritFiltro, NumeroInfo, TextoInfo, DestruirInfo;
-FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, DestruirLista, CantidadLista, ActualLista, RemoverDeLista, EsVaciaLista;
+FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, PartirLista, IrInicioLista, CantidadLista, ActualLista, RemoverDeLista;
 
 TYPE Binario = POINTER TO Nodo;
      Nodo = RECORD
@@ -274,13 +274,7 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
 
 BEGIN
 
-   IF EsHoja(a) THEN
-      CASE Compare(txt, TextoInfo(a^.elemento)) OF
-         equal: DestruirBinario(a);
-      END;
-   ELSE
-      Iterar(txt, a, FALSE);
-   END;
+   Iterar(txt, a, FALSE);
 
 END RemoverDeBinario;
 
@@ -401,7 +395,6 @@ PROCEDURE CantidadBinario (a: Binario): CARDINAL;
 VAR nodosDerecha, nodosIzquierda, resultado : CARDINAL;
 BEGIN
 
-   resultado := 1;
    nodosDerecha := 0;
    nodosIzquierda := 0;
    IF TieneHijoDerecho(a) THEN
@@ -410,7 +403,7 @@ BEGIN
    IF TieneHijoIzquierdo(a) THEN
       nodosIzquierda := CantidadBinario(a^.izquierdo);
    END;
-   resultado := resultado + nodosDerecha + nodosIzquierda;
+   resultado := 1 + nodosDerecha + nodosIzquierda;
 
    RETURN resultado;
    

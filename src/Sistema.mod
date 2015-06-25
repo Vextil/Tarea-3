@@ -11,7 +11,7 @@ InCo-FIng-UDELAR
 *******************************************************************************)
 
 FROM Storage     IMPORT ALLOCATE, DEALLOCATE;
-FROM ListaString IMPORT ListaString, EsPosicionValida, DestruirLista, CrearLista, EsVaciaLista, RemoverDeLista, InsertarEnLista, ActualLista;
+FROM ListaString IMPORT ListaString, EsPosicionValida, DestruirLista, CrearLista, RemoverDeLista, InsertarEnLista, ActualLista;
 FROM Solicitudes IMPORT RangoRecursos;
 FROM Utils       IMPORT TString;
 FROM Solicitudes IMPORT Solicitudes, CrearSolicitudes, IngresarSolicitud, EnAmbosSolicitudes, DestruirSolicitudes;

@@ -118,7 +118,7 @@ PROCEDURE Union (A, B: Set): Set;
 	   			ELSIF comparacion = greater THEN
 	   				Insertar(b, c);
 	   			ELSIF comparacion = equal THEN
-	   				RemoverDeLista(a);
+	   				Insertar(a, c);
 	   				RemoverDeLista(b);
 	   			END;
 	   		ELSIF EsPosicionValida(a) THEN
