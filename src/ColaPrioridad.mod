@@ -17,8 +17,8 @@ FROM ListaString IMPORT ListaString, CrearLista, InsertarEnLista, CantidadLista,
 TYPE
 	ColaPrioridad = POINTER TO TipoColaPrioridad;
 	TipoColaPrioridad = RECORD
-		listas : ARRAY [1..K] OF ListaString;
-		prioridades : ARRAY [1..K] OF RangoPrioridad;
+		listas : ARRAY [-1..K] OF ListaString;
+		prioridades : ARRAY [-1..K] OF RangoPrioridad;
 		cantidad : CARDINAL;
 	END;
 

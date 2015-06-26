@@ -74,8 +74,12 @@ BEGIN
 
 	NEW(nodo);
 	nodo^.elemento := txt;
+	nodo^.siguiente := NIL;
+	nodo^.anterior := NIL;
 	IF EsVaciaLista(l) THEN
 		NEW(l);
+		l^.inicio := NIL;
+		l^.final := NIL;
 	END;
 	IF (l^.inicio = NIL) THEN
 		l^.cantidad := 1;
@@ -140,7 +144,8 @@ BEGIN
 		DEC(l^.cantidad);
 		actual := l^.actual;
 		IF (actual = l^.inicio) AND (actual = l^.final) THEN
-			DestruirLista(l);
+			DISPOSE(l);
+			l := NIL;
 		ELSIF actual = l^.inicio THEN
 			actual^.siguiente^.anterior := NIL;
 			l^.inicio := actual^.siguiente;
@@ -154,6 +159,7 @@ BEGIN
 			actual^.anterior^.siguiente := actual^.siguiente;
 			l^.actual := actual^.siguiente;
 		END;
+		DISPOSE(actual);
 	END;
    
 END RemoverDeLista;
@@ -161,19 +167,14 @@ END RemoverDeLista;
 PROCEDURE DestruirLista (VAR l: ListaString);
 (* Libera la memoria asignada a 'l' y a todos sus elementos.
    El tiempo de ejecucion es O(n), siendo n = CantidadLista (l). *)
-
-   PROCEDURE DestruirPosiciones (VAR p: Posicion);
-   BEGIN
-      IF p # NIL THEN
-         DestruirPosiciones(p^.siguiente);
-         DISPOSE(p);
-      END;      
-   END DestruirPosiciones;
-
 BEGIN
 
 	IF NOT EsVaciaLista(l) THEN
-		DestruirPosiciones(l^.inicio);
+		WHILE l^.inicio # NIL DO
+			l^.actual := l^.inicio;
+			l^.inicio := l^.actual^.siguiente;
+			DISPOSE(l^.actual);
+		END;
 		DISPOSE(l);
 	END;
 
