@@ -1,0 +1,10 @@
+xc.*  = /usr/local/xds/bin;C:\xds/bin
+*.tem = /usr/local/xds/bin;C:\xds/bin
+*.sym = ./sym;/usr/local/xds/sym/x86;C:\xds/sym/x86
+*.a   = .;/usr/local/xds/lib/x86
+*.lib = .;C:\xds/lib/x86
+*.o   = ./obj
+*.obj = ./obj
+*.def = ./def
+*.mod = ./src;./test/src
+*.prj = .

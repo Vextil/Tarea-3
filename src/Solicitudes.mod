@@ -11,6 +11,8 @@ Laboratorio de Programacion 2.
 InCo-FI-UDELAR
 *******************************************************************************)
 
+FROM Strings       IMPORT Append;
+FROM WholeStr      IMPORT CardToStr;
 FROM Utils         IMPORT TString;
 FROM ListaString   IMPORT ListaString, InsertarEnLista, CrearLista, DestruirLista;
 FROM Set           IMPORT Set, ConstruirSet, DestruirSet, Union, Interseccion, Diferencia;
@@ -66,12 +68,20 @@ PROCEDURE ListarSolicitudes (VAR s: Solicitudes): ListaString;
    Asumiendo que hay N solicitudes, el tiempo de ejecucion es
    O(N + MAX_RECURSOS . log (MAX_RECURSOS) ).
    Al finalizar, 's' debe quedar vacia (sin solicitudes). *)
-VAR lista : ListaString;
+VAR 
+   lista : ListaString;
+   elemento, prioridad : TString;
 BEGIN
    
    lista := CrearLista();
    WHILE NOT EsVaciaColaPrioridad(s) DO
-      InsertarEnLista(MinimoColaPrioridad(s), lista);
+      CardToStr(PrioridadMinimoColaPrioridad(s), prioridad);
+      elemento := "(";
+      Append(prioridad, elemento);
+      Append(",", elemento);
+      Append(MinimoColaPrioridad(s), elemento);
+      Append(")", elemento);
+      InsertarEnLista(elemento, lista);
       ExtraerDeMinimoColaPrioridad(s);
    END;
    RETURN lista;
@@ -90,8 +100,6 @@ BEGIN
    l2 := ElementosColaPrioridad(r2, s);
    s1 := ConstruirSet(l1);
    s2 := ConstruirSet(l2);
-   DestruirLista(l1);
-   DestruirLista(l2);
    resultado := Union(s1, s2);
    DestruirSet(s1);
    DestruirSet(s2);
@@ -111,8 +119,6 @@ BEGIN
    l2 := ElementosColaPrioridad(r2, s);
    s1 := ConstruirSet(l1);
    s2 := ConstruirSet(l2);
-   DestruirLista(l1);
-   DestruirLista(l2);
    resultado := Interseccion(s1, s2);
    DestruirSet(s1);
    DestruirSet(s2);
@@ -125,18 +131,19 @@ PROCEDURE SoloEnUnoSolicitudes (r1, r2: RangoRecursos; s: Solicitudes): Set;
    o r2' pero no el otro. *)
 VAR 
    l1, l2 : ListaString;
-   s1, s2, resultado : Set;
+   s1, s2, s3, resultado : Set;
 BEGIN
    
    l1 := ElementosColaPrioridad(r1, s);
    l2 := ElementosColaPrioridad(r2, s);
    s1 := ConstruirSet(l1);
    s2 := ConstruirSet(l2);
-   DestruirLista(l1);
-   DestruirLista(l2);
-   resultado := Diferencia(s1, s2);
+   s3 := Diferencia(s1, s2);
+   s1 := Diferencia(s2, s1);
+   resultado := Union(s1, s3);
    DestruirSet(s1);
    DestruirSet(s2);
+   DestruirSet(s3);
    RETURN resultado;
 
 END SoloEnUnoSolicitudes;
@@ -145,7 +152,9 @@ PROCEDURE DestruirSolicitudes (VAR s: Solicitudes);
 (* Libera la memoria asignada a 's'. *)
 BEGIN
    
-   DestruirColaPrioridad(s);
+   IF NOT EsVaciaColaPrioridad(s) THEN
+      DestruirColaPrioridad(s);
+   END;
 
 END DestruirSolicitudes;
 

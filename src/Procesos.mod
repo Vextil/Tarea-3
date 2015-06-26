@@ -14,7 +14,7 @@ InCo-FI-UDELAR
 *******************************************************************************)
 
 FROM STextIO     IMPORT WriteString, WriteLn;
-FROM ListaString IMPORT ListaString, IrInicioLista;
+FROM ListaString IMPORT ListaString, IrInicioLista, CrearLista;
 FROM Utils       IMPORT TInfo, TString, CrearInfo, NumeroInfo, TCritFiltro, InfoAString;
 FROM Binario     IMPORT Binario, CrearHoja, InsertarEnBinario, DestruirBinario, RemoverDeBinario, CantidadBinario, BoolBinario, BuscarABB, Linealizacion, Filtrar, Izquierdo, Derecho, TieneHijoIzquierdo, RaizBinario, TieneHijoDerecho, AlturaBinario;
 
@@ -109,9 +109,13 @@ VAR i, altura : CARDINAL;
 BEGIN
    
    altura := AlturaBinario(p);
-   FOR i := 1 TO altura DO
-      ImprimirNivel(i, (altura + 1) - i, p);
-      IF NOT (i = altura) THEN
+   IF altura = 1 THEN
+      WriteString(InfoAString(RaizBinario(p)));
+      WriteString(" ");
+      WriteLn();
+   ELSE
+      FOR i := 1 TO altura DO
+         ImprimirNivel(1, (altura + 1) - i, p);
          WriteLn();
       END;
    END;
@@ -143,7 +147,8 @@ BEGIN
       l := Linealizacion(filtrado.arbol);
       IrInicioLista(l);
       RETURN l;
-   END;     
+   END;
+   RETURN CrearLista();
 
 END MuyConsumidores;  
    

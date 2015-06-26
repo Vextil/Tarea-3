@@ -244,7 +244,13 @@ PROCEDURE RemoverDeBinario (txt: TString; VAR a: Binario);
 		ELSIF TieneHijoIzquierdo(a) THEN
 			aNuevo := a^.izquierdo;
 		END;
-		IF TieneHijoDerecho(a) OR TieneHijoIzquierdo(a) THEN
+      IF aNuevo = NIL THEN
+            IF esDerecho THEN
+               a^.padre^.derecho := NIL;
+            ELSE
+               a^.padre^.izquierdo := NIL;
+            END;
+		ELSIF TieneHijoDerecho(a) OR TieneHijoIzquierdo(a) THEN
 			(* Agrego a "aNuevo" en lugar de "a" *)
 			aNuevo^.padre := a^.padre;
 			IF NOT (aNuevo^.padre = NIL) THEN
